@@ -103,7 +103,7 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(env, 'env', '/Users/Kidokeisuke/bitcraft/index.js');
+	__REACT_HOT_LOADER__.register(env, 'env', '/Users/Kidokeisuke/hardboiled/index.js');
 }();
 
 ;
@@ -163,7 +163,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/db/index.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/hardboiled/db/index.js');
 }();
 
 ;
@@ -237,15 +237,15 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(name, 'name', '/Users/Kidokeisuke/bitcraft/db/_db.js');
+	__REACT_HOT_LOADER__.register(name, 'name', '/Users/Kidokeisuke/hardboiled/db/_db.js');
 
-	__REACT_HOT_LOADER__.register(url, 'url', '/Users/Kidokeisuke/bitcraft/db/_db.js');
+	__REACT_HOT_LOADER__.register(url, 'url', '/Users/Kidokeisuke/hardboiled/db/_db.js');
 
-	__REACT_HOT_LOADER__.register(sync, 'sync', '/Users/Kidokeisuke/bitcraft/db/_db.js');
+	__REACT_HOT_LOADER__.register(sync, 'sync', '/Users/Kidokeisuke/hardboiled/db/_db.js');
 
-	__REACT_HOT_LOADER__.register(db, 'db', '/Users/Kidokeisuke/bitcraft/db/_db.js');
+	__REACT_HOT_LOADER__.register(db, 'db', '/Users/Kidokeisuke/hardboiled/db/_db.js');
 
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/db/_db.js');
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/hardboiled/db/_db.js');
 }();
 
 ;
@@ -336,11 +336,11 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(PUBLIC_PATH, 'PUBLIC_PATH', '/Users/Kidokeisuke/bitcraft/server/index.js');
+	__REACT_HOT_LOADER__.register(PUBLIC_PATH, 'PUBLIC_PATH', '/Users/Kidokeisuke/hardboiled/server/index.js');
 
-	__REACT_HOT_LOADER__.register(app, 'app', '/Users/Kidokeisuke/bitcraft/server/index.js');
+	__REACT_HOT_LOADER__.register(app, 'app', '/Users/Kidokeisuke/hardboiled/server/index.js');
 
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/server/index.js');
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/hardboiled/server/index.js');
 }();
 
 ;
@@ -391,7 +391,7 @@ module.exports = require("morgan");
 /***/ (function(module, exports) {
 
 module.exports = {
-	"name": "faye",
+	"name": "hardboiled",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -515,17 +515,17 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(STRING, 'STRING', '/Users/Kidokeisuke/bitcraft/db/models/user.js');
+	__REACT_HOT_LOADER__.register(STRING, 'STRING', '/Users/Kidokeisuke/hardboiled/db/models/user.js');
 
-	__REACT_HOT_LOADER__.register(VIRTUAL, 'VIRTUAL', '/Users/Kidokeisuke/bitcraft/db/models/user.js');
+	__REACT_HOT_LOADER__.register(VIRTUAL, 'VIRTUAL', '/Users/Kidokeisuke/hardboiled/db/models/user.js');
 
-	__REACT_HOT_LOADER__.register(schema, 'schema', '/Users/Kidokeisuke/bitcraft/db/models/user.js');
+	__REACT_HOT_LOADER__.register(schema, 'schema', '/Users/Kidokeisuke/hardboiled/db/models/user.js');
 
-	__REACT_HOT_LOADER__.register(options, 'options', '/Users/Kidokeisuke/bitcraft/db/models/user.js');
+	__REACT_HOT_LOADER__.register(options, 'options', '/Users/Kidokeisuke/hardboiled/db/models/user.js');
 
-	__REACT_HOT_LOADER__.register(User, 'User', '/Users/Kidokeisuke/bitcraft/db/models/user.js');
+	__REACT_HOT_LOADER__.register(User, 'User', '/Users/Kidokeisuke/hardboiled/db/models/user.js');
 
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/db/models/user.js');
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/hardboiled/db/models/user.js');
 }();
 
 ;
@@ -584,13 +584,13 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/bitcraft/server/hmr.js');
+	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/hardboiled/server/hmr.js');
 
-	__REACT_HOT_LOADER__.register(clientConfig, 'clientConfig', '/Users/Kidokeisuke/bitcraft/server/hmr.js');
+	__REACT_HOT_LOADER__.register(clientConfig, 'clientConfig', '/Users/Kidokeisuke/hardboiled/server/hmr.js');
 
-	__REACT_HOT_LOADER__.register(compiler, 'compiler', '/Users/Kidokeisuke/bitcraft/server/hmr.js');
+	__REACT_HOT_LOADER__.register(compiler, 'compiler', '/Users/Kidokeisuke/hardboiled/server/hmr.js');
 
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/server/hmr.js');
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/hardboiled/server/hmr.js');
 }();
 
 ;
@@ -649,7 +649,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(applyBaseConfig, 'applyBaseConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/index.js');
+  __REACT_HOT_LOADER__.register(applyBaseConfig, 'applyBaseConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/index.js');
 }();
 
 ;
@@ -735,13 +735,13 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/hardboiled/webpack_config/client.js');
 
-	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/client.js');
 
-	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/client.js');
 
-	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/client.js');
 }();
 
 ;
@@ -799,13 +799,13 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/hardboiled/webpack_config/server.js');
 
-	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/server.js');
 
-	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/server.js');
 
-	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/server.js');
 }();
 
 ;
@@ -874,11 +874,11 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/base.js');
 
-	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/base.js');
 
-	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/hardboiled/webpack_config/base.js');
 }();
 
 ;
@@ -920,9 +920,9 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/bitcraft/server/api/index.js');
+	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/hardboiled/server/api/index.js');
 
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/server/api/index.js');
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/hardboiled/server/api/index.js');
 }();
 
 ;
@@ -978,11 +978,11 @@ var _temp = function () {
 		return;
 	}
 
-	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/bitcraft/server/api/user.js');
+	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/hardboiled/server/api/user.js');
 
-	__REACT_HOT_LOADER__.register(User, 'User', '/Users/Kidokeisuke/bitcraft/server/api/user.js');
+	__REACT_HOT_LOADER__.register(User, 'User', '/Users/Kidokeisuke/hardboiled/server/api/user.js');
 
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/server/api/user.js');
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/hardboiled/server/api/user.js');
 }();
 
 ;
