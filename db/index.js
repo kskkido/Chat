@@ -1,5 +1,5 @@
-const db = require('./_db')
-    , User = require('./models/user')
+import db from './_db'
+import User from './models/user'
 
 // define associations
-module.exports = db
+export default db

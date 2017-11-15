@@ -1,14 +1,21 @@
+/* eslint-disable import/no-extraneous-dependencies, global-require */
 import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
+import ReactDOM from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
+import App from './App'
 
-import store from './store'
+const render = (Component) => {
+	ReactDOM.render(
+		<AppContainer>
+			<Component />
+		</AppContainer>,
+		document.getElementById('app')
+	)
+}
 
-import { App } from './app'
+render(App)
 
-render(
-	<Provider store={store}>
-			<App />
-	</Provider>
-	, document.getElementById('app')
-)
+if (module.hot) {
+	/* method suggested in react-hot-module docs did not work */
+	module.hot.accept('./App', () => { render(require('./App').default) })
+}

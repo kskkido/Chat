@@ -1,61 +1,47 @@
-const { join } = require('path')
-		, bodyParser = require('body-parser')
-		, express = require('express')
-		, app = express()
-		, db = require('../db')
-		, session = require('express-session')
-		, SequelizeStore = require('connect-session-sequelize')(session.Store)
-		, dbStore = new SequelizeStore({db})
-		, passport = require('passport')
+import path from 'path'
+import bodyParser from 'body-parser'
+import express from 'express'
+import morgan from 'morgan'
+import { env, port, root } from '../'
+import db from '../db'
+import hmr from './hmr'
+import api from './api'
 
-module.exports = app
-// logging middleware
-	.use(require('morgan')('dev'))
+const PUBLIC_PATH = path.join(root, 'dist/public')
+const app = express()
 
-// body parsing middleware
-	.use(bodyParser.urlencoded({extended: false}))
+export default app
+	.use(env.NODE_ENV === 'development' ? hmr : (req, res, next) => next())
+
+	.use(morgan('dev'))
+
+	.use(bodyParser.urlencoded({ extended: false }))
 	.use(bodyParser.json())
 
-// define user sessions
-	.use(session({
-		secret: process.env.SESSION_SECRET || 'insecure secret',
-		store: dbStore,
-		resave: false,
-		saveUninitialized: false
-	}))
+	.use(express.static(PUBLIC_PATH))
+	.use('/api', api)
 
-// define passport
-	.use(passport.initialize())
-	.use(passport.session())
-
-// redirect to api routes
-	.use('/api', require('./api'))
-
-	.use(express.static(join(__dirname, '../client/public')))
-
-	.get('*', (req, res, next) => {
-		res.sendFile(join(__dirname, '../client/public'))
+	.get('*', (req, res) => {
+		res.sendFile(`${PUBLIC_PATH}/index.html`)
 	})
 
-// error handling middlware
-	.use((err, req, res, next) => {
+	.use((err, req, res) => {
 		console.error(err)
 		res.status(err.status || 500).send(err.message || 'Internal server error')
 	})
 
 if (module === require.main) {
-	db.syncAndLaunch(
-		() => {
-			console.log('successfully synced database')
-			const server = app.listen(
-			require('../').port,
+	db.syncAndLaunch(() => {
+		console.log('successfully synced database')
+		const server = app.listen(
+			port,
 			() => {
 				console.log('connected')
-				const { address, port } = server.address()
+				const { address } = server.address()
 				const host = address === '::' ? 'localhost' : address
 				const urlSafeHost = host.includes(':') ? `[${host}]` : host
 				console.log(`Listening on http://${urlSafeHost}:${port}`)
-			})
-		}
-	)
+			}
+		)
+	})
 }

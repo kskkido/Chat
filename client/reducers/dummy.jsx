@@ -2,22 +2,22 @@
 const AUTHENTICATE = 'AUTHENTICATE'
 
 /* ====== DEFINE ACTION CREATORS ====== */
-export const authenticate = () => ({type: AUTHENTICATE})
+export const authenticate = () => ({ type: AUTHENTICATE })
 
 /* ====== DEFINE INITIAL STATE ====== */
 const initialState = {
-  authenticated: false
+	authenticated: false
 }
 
 /* ====== DEFINE REDUCER ====== */
 export default (state = initialState, action) => {
-  switch (action.type) {
-  case AUTHENTICATE:
-    return Object.assign({}, state, {authenticated: true})
+	switch (action.type) {
+	case AUTHENTICATE:
+		return Object.assign({}, state, { authenticated: true })
 
-  default:
-    return state
-  }
+	default:
+		return state
+	}
 }
 
 /* ====== DEFINE DISPATCHERS ====== */

@@ -1,25 +1,18 @@
 // define constants such as env
 // module.exports getters that check for environment variables
 // some how make symlink work like bones
-const { join } = require('path')
-    , pkg = require('./package.json')
-    , env = require('process').env
-    , customEnv = join(env.HOME, `.${pkg.name}.env.json`)
+const pkg = require('./package.json')
+const process = require('process')
 
-try {
-  Object.assign(env, require(customEnv))
-} catch (err) {
-  console.log('could not find custom env file in home directory')
-}
+const { env } = process
 
 module.exports = {
-  get name() { return pkg.name },
-  get port() {
-    return env.PORT || 1337
-  },
-  get baseUrl() {
-    return env.BASE_URL || `http://localhost:${module.exports.port}`
-  },
-  package: pkg,
-  env,
+	get baseUrl() {
+		return env.BASE_URL || `http://localhost:${module.exports.port}`
+	},
+	get name() { return pkg.name },
+	get port() { return env.PORT || 1337 },
+	get root() { return process.cwd() },
+	package: pkg,
+	env,
 }
