@@ -6,8 +6,10 @@ const { join } = require('path')
 const { root } = require('../')
 
 const PATHS = {
-	entry: join(root, 'client'),
-	output: join(root, 'dist/public')
+	entry: join(root, 'src/client'),
+	output: join(root, 'dist/public'),
+	reducers: join(root, 'src/client/reducers'),
+	utils: join(root, 'src/client/utils')
 }
 
 const commonConfig = {
@@ -19,9 +21,13 @@ const commonConfig = {
 	output: {
 		path: PATHS.output,
 		filename: 'bundle.js',
-		publicPath: '/'
+		publicPath: '/public'
 	},
 	resolve: {
+		alias: {
+			Reducers: PATHS.reducers,
+			Utils: PATHS.utils,
+		},
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '*']
 	},
 	module: {
