@@ -1,32 +1,49 @@
-import { actionCreator, updateObject } from 'Utils/reducers'
-import { clientConnenct } from 'Reducers/client'
+import { actionCreator, createReducer, updateObject } from 'Utils/reducers'
 
 /* ====== DEFINE ACTION TYPES ====== */
-const AUTH_REQUEST = 'AUTH_REQUEST'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const AUTH_FAIL = 'AUTH_FAIL'
 
 /* ====== DEFINE ACTION CREATOR ====== */
-export const authRequest = actionCreator(AUTH_REQUEST)
 export const authSuccess = actionCreator(AUTH_SUCCESS)
 export const authFail = actionCreator(AUTH_FAIL)
 
 /* ====== DEFINE STATE ====== */
 const initialState = {
-	loading: false,
-	authenticated: false,
+	username: null,
 	error: ''
 }
 
 /* === DEFINE CASE HANDLERS === */
-const onRequest = (state, action) => updateObject(state, { loading: true })
-const onSuccess = (state, action) => updateObject(state, { authenticated: true })
+const onSuccess = (state, action) => updateObject(state, { error: '', username: action.payload.username })
 const onFail = (state, action) => updateObject(state, { error: action.payload.error })
 
 /* ====== DEFINE REDUCER ====== */
-const reducer = (initialState, {
+const reducer = createReducer(initialState, {
 	AUTH_SUCCESS: onSuccess,
 	AUTH_FAIL: onFail
 })
 
 export default reducer
+
+/* ====== DEFINE DISPATCHER ====== */
+const validate = (username = '') => {
+	let error = ''
+
+	if (!/^\w+$/.test(username)) {
+		error += 'username must consist of alphabets\n'
+	}
+
+	return error
+}
+
+export const authRequest = username => (dispatch) => {
+	const error = validate(username)
+
+	if (error.length > 0) {
+		return dispatch(authFail({ error }))
+	}
+
+	return dispatch(authSuccess({ username }))
+}
+

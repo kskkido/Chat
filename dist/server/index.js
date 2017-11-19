@@ -286,7 +286,7 @@ module.exports = {
 		"test": "mocha --compilers js:babel-register --watch-extensions js,jsx tests/**/*.test.js",
 		"build": "webpack",
 		"start": "node ./dist/server",
-		"start-dev": "NODE_ENV=development webpack -w & NODE_ENV=development nodemon ./dist/server",
+		"start-dev": "NODE_ENV=development webpack -w & NODE_ENV=development node ./dist/server",
 		"start-prod": "NODE_ENV=production webpack && npm run start"
 	},
 	"keywords": [],
@@ -311,7 +311,9 @@ module.exports = {
 		"redux-devtools-extension": "^2.13.2",
 		"redux-logger": "^3.0.6",
 		"redux-thunk": "^2.2.0",
-		"sequelize": "^4.3.2"
+		"rxjs": "^5.5.2",
+		"sequelize": "^4.3.2",
+		"styled-components": "^2.2.3"
 	},
 	"devDependencies": {
 		"awesome-typescript-loader": "^3.3.0",
@@ -321,6 +323,7 @@ module.exports = {
 		"babel-plugin-transform-object-rest-spread": "^6.26.0",
 		"babel-preset-env": "^1.6.1",
 		"babel-preset-react": "^6.24.1",
+		"babel-preset-stage-0": "^6.24.1",
 		"babel-register": "^6.24.1",
 		"chai": "^4.1.0",
 		"compression-webpack-plugin": "^1.0.0",
@@ -555,6 +558,7 @@ var _require2 = __webpack_require__(0),
 var PATHS = {
 	entry: join(root, 'src/client'),
 	output: join(root, 'dist/public'),
+	components: join(root, 'src/client/components'),
 	reducers: join(root, 'src/client/reducers'),
 	utils: join(root, 'src/client/utils')
 };
@@ -568,6 +572,7 @@ var commonConfig = {
 	},
 	resolve: {
 		alias: {
+			Components: PATHS.components,
 			Reducers: PATHS.reducers,
 			Utils: PATHS.utils
 		},
@@ -723,7 +728,7 @@ var commonConfig = {
 			exclude: /(node_modules|bower_components)/,
 			loader: 'babel-loader',
 			options: {
-				presets: ['react', 'env']
+				presets: ['react', 'env', 'stage-0']
 			}
 		}]
 	}

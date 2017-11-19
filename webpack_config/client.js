@@ -8,6 +8,7 @@ const { root } = require('../')
 const PATHS = {
 	entry: join(root, 'src/client'),
 	output: join(root, 'dist/public'),
+	components: join(root, 'src/client/components'),
 	reducers: join(root, 'src/client/reducers'),
 	utils: join(root, 'src/client/utils')
 }
@@ -25,6 +26,7 @@ const commonConfig = {
 	},
 	resolve: {
 		alias: {
+			Components: PATHS.components,
 			Reducers: PATHS.reducers,
 			Utils: PATHS.utils,
 		},

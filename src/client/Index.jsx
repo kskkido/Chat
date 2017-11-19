@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
 import store from './store'
-import Routes from './Routes'
+import App from './App'
 
 const render = (Component) => {
 	ReactDOM.render(
@@ -20,9 +20,9 @@ const render = (Component) => {
 	)
 }
 
-render(Routes)
+render(App)
 
 if (module.hot) {
 	/* method suggested in react-hot-module docs did not work */
-	module.hot.accept('./Routes', () => { render(require('./Routes').default) })
+	module.hot.accept('./App', () => { render(require('./App').default) })
 }

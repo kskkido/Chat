@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* import/no-unresolved */
 import { actionCreator, createReducer, createSubstateFactory, updateObject } from 'Utils/reducers'
+import { userConnect } from './users'
 
 /* ====== DEFINE ACTION TYPES ====== */
 const MESSAGE_CREATE = 'MESSAGE_CREATE'
@@ -10,14 +11,12 @@ export const messageCreate = actionCreator(MESSAGE_CREATE) // not sure about thi
 
 /* ====== DEFINE STATE ====== */
 const initialState = { // id of Messages
-	byId: {},
 	allIds: []
 }
 
 const initialMessageState = {
-	id: null,
-	userId: null,
-	text: '',
+	username: null,
+	content: '',
 	timestamp: ''
 }
 
@@ -27,8 +26,7 @@ const createMessage = createSubstateFactory(initialMessageState)
 const onCreate = (state, action) => {
 	const newMessage = createMessage(action)
 	const newState = updateObject(state, {
-		allIds: [...state.allIds, newMessage.id],
-		byId: updateObject(state.byId, { [newMessage.id]: newMessage })
+		allIds: [...state.allIds, newMessage],
 	})
 
 	return newState
@@ -42,3 +40,14 @@ export const reducer = createReducer(initialState, {
 export default reducer
 
 /* ====== DEFINE DISPATCHER ====== */
+export const messageCreateWithUser = message =>
+	(dispatch, getState) => {
+		const { username } = message
+		const { users } = getState()
+
+		if (!users[username]) {
+			dispatch(userConnect({ username }))
+		}
+
+		return dispatch(messageCreate(message))
+	}

@@ -1,18 +1,18 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* import/no-unresolved */
 import { actionCreator, createReducer, createSubstateFactory, mapHandlers, updateObject } from 'Utils/reducers'
-import { identity } from 'ramda'
+import { identity, map } from 'ramda'
 
 /* ====== DEFINE ACTION TYPES ====== */
 const USER_CONNECT = 'USER_CONNECT'
 const USER_DISCONNECT = 'USER_DISCONNECT'
-const USER_COMMENT = 'USER_COMMENT'
+const USER_COLOR = 'USER_COLOR'
 const USER_MUTE = 'USER_MUTE'
 
 /* ====== DEFINE ACTION CREATOR ====== */
 export const userConnect = actionCreator(USER_CONNECT) // not sure about this
 export const userDisconnect = actionCreator(USER_DISCONNECT)
-export const userComment = actionCreator(USER_COMMENT)
+export const userColor = actionCreator(USER_COLOR)
 export const userMute = actionCreator(USER_MUTE)
 
 /* ====== DEFINE STATE ====== */
@@ -20,72 +20,46 @@ const initialState = { // id of users
 }
 
 const initialUserState = { // user state
-	id: null,
 	username: '',
-	comments: [],
-	mute: false
+	color: 'black',
+	mute: false,
 }
 
 /* ====== DEFINE USERS CASE REDUCER ====== */
 const createUserState = createSubstateFactory(initialUserState)
 
-const onUserDisconnect = (state, action) => {
-	const { payload } = action
-	const newState = updateObject({}, state)
-
-	delete newState[payload.id]
-	return newState
-}
-
-/* ==== DEFINE USER CASE REDUCER ===== */
-const provideUser = mapHandlers(handlerFn => (state, action) => {
-	const { id } = action.payload
-	const userState = state[id] || createUserState(action) // creates new user if id does not exist
-	const newState = updateObject(state, { [id]: handlerFn(userState, action) })
+const withUser = map(handlerFn => (state, action) => {
+	const { username } = action.payload
+	const userState = state[username] || createUserState(action)
+	const newState = updateObject(state, { [username]: handlerFn(userState, action) })
 
 	return newState
 })
 
 const onUserConnect = identity
 
-const onUserCategory = (userState, action) => {
-	const { payload } = action
-	const newUserState = updateObject(userState, { category: payload.category })
+const onUserColor = (userState, { payload }) => {
+	const { color } = payload
+	const newUserState = updateObject(userState, { color })
 
 	return newUserState
 }
 
-const onUserComment = (userState, action) => {
-	const { payload } = action
-	const { comments } = userState
-	const newUserState = updateObject(userState, { comments: comments.concat(payload.commentId) })
-
-	return newUserState
-}
-
-const onUserMute = (userState, action) => {
-	const { payload } = action
-	const newUserState = updateObject(userState, { mute: payload.mute })
+const onUserMute = (userState, { payload }) => {
+	const { mute } = payload
+	const newUserState = updateObject(userState, { mute })
 
 	return newUserState
 }
 
 /* ====== DEFINE REDUCER ====== */
 // reducer that directly interacts with each user indexed by id
-const userReducer = (initialUserState, provideUser({
-	USER_CONNECT: onUserConnect,
-	USER_CATEGORY: onUserCategory,
-	USER_COMMENT: onUserComment,
-	USER_MUTE: onUserMute
-}))
 
-const usersReducer = createReducer(initialState, {
-	USER_DISCONNECT: onUserDisconnect,
-	USER_CONNECT: userReducer, // passes through userReducer to create new user
-	USER_CATEGORY: userReducer,
-	USER_COMMENT: userReducer,
-	USER_MUTE: userReducer,
-})
+const usersReducer = createReducer(initialState, withUser({
+	USER_CONNECT: onUserConnect, // passes through userReducer to create new user
+	USER_CATEGORY: onUserColor,
+	USER_MUTE: onUserMute,
+}))
 
 export default usersReducer
 

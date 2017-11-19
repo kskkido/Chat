@@ -1,22 +1,35 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import PropTypes from 'prop-types'
+import Input from './Input'
+import Messages from './Messages'
+import Users from './Users'
+import {
+	ChatContainer as Container,
+	ChatLeft as Left,
+	ChatRight as Right,
+	ChatHeader as Header,
+} from 'Components/Styles'
 
-class Chat extends Component {
-
-}
+const Chat = ({ onMessage }) => (
+	<Container>
+		<Left>
+			<Header>
+				<span>Users</span>
+			</Header>
+			<Users />
+		</Left>
+		<Right>
+			<Header>
+				<span>Messages</span>
+			</Header>
+			<Messages />
+			<Input onMessage={onMessage} />
+		</Right>
+	</Container>
+)
 
 Chat.propTypes = {
-  faye: PropTypes.instanceOf(Faye),
-  username: PropTypes.string,
+	onMessage: PropTypes.func.isRequired,
 }
 
-Chat.defaultProps = {
-  faye: null,
-  username: ''
-}
-
-const mapStateToProps = state => ({ username: state.client.username })
-const mapDispatchToProps = dispatch => ({})
-
-export default connect(mapStateToProps, mapDispatchToProps)
+export default Chat
