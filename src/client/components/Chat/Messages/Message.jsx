@@ -36,17 +36,17 @@ MessageSender.propTypes = {
 
 const MessageContent = ({ content, color, timestamp }) => {
 	const splitByLine = content.split('\n')
-	const TextDom = splitByLine.map((text, i) => (
-		<Text
-			key={`text_${timestamp}_${i}`}
-			color={color || 'purple'}
-		>
-			{text}
-		</Text>))
 
 	return (
 		<Content>
-			{TextDom}
+			{splitByLine.map((text, i) => (
+				<Text
+					key={`text_${timestamp}_${i}`}
+					color={color || 'purple'}
+				>
+					{text}
+				</Text>
+			))}
 		</Content>
 	)
 }

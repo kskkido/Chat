@@ -2,131 +2,145 @@
 import EventManager from 'Utils/eventManager'
 import store from './store'
 
-const client = new Faye.Client(`${window.location.pathname}/faye`)
+// const createSomething = () => {
+// 	const STATES = {
+// 		DISCONNECTED: 0,
+// 		CONNECTING: 1,
+// 		CONNECTED: 2
+// 	}
 
-const createSomething = () => {
-	const STATES = {
-		DISCONNECTED: 0,
-		CONNECTING: 1,
-		CONNECTED: 2
-	}
+// 	let state = STATES.DISCONNECTED
 
-	let state = STATES.DISCONNECTED
+// 	const maxChannelCacheSize = 2000
 
-	const maxChannelCacheSize = 2000
+// 	const cache = {}
+// 	const channelEventManager = {}
+// 	const fayeSubscriptions = {}
 
-	const cache = {}
-	const channelEventManager = {}
-	const fayeSubscriptions = {}
+// 	const onConnectEventManager = EventManager.create()
+// 	const onDisconnectEventManager = EventManager.create()
 
-	const onConnectEventManager = EventManager.create()
-	const onDisconnectEventManager = EventManager.create()
+// 	client.on('transport:up', () => {
+// 		state = STATES.CONNECTED
+// 		onConnectEventManager.raise(null)
+// 	})
 
-	client.on('transport:up', () => {
-		state = STATES.CONNECTED
-		onConnectEventManager.raise(null)
+// 	client.on('transport:down', () => {
+// 		state = STATES.DISCONNECTED
+// 		onDisconnectEventManager.raise(null)
+// 	})
+
+// 	function onChannelMessage(channel, message, _cache) {
+// 		channelEventManager[channel].raise(null, message)
+
+// 		_cache.push(message)
+// 		while (_cache.length > maxChannelCacheSize) {
+// 			_cache.shift()
+// 		}
+// 	}
+
+// 	function subscribe(channel, callback, fetchHistory) {
+// 		let eventManager = channelEventManager[channel]
+// 		let needToSubscribe = false
+
+// 		if (eventManager === undefined) {
+// 			channelEventManager[channel] = EventManager.create()
+// 			eventManager = channelEventManager[channel]
+// 			needToSubscribe = true
+// 		}
+
+// 		if (cache[channel] === undefined) {
+// 			cache[channel] = []
+// 		}
+
+// 		const subscription = eventManager.subscribe(null, callback)
+// 		const cacheMessages = cache[channel]
+
+// 		if (fetchHistory) { }
+
+// 		if (needToSubscribe) {
+// 			fayeSubscriptions[channel] = client.subscribe(channel, (message) => {
+// 				onChannelMessage(channel, message, cacheMessages)
+// 			})
+// 		}
+
+// 		return {
+// 			unsubscribe(disconnect) {
+// 				subscription.unsubscribe()
+
+// 				if (disconnect && eventManager.subscribeCount() === 0) {
+// 					fayeSubscriptions[channel].cance()
+// 					delete fayeSubscriptions[channel]
+
+// 					delete channelEventManager[channel]
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	function onConnect(callback) {
+// 		const subscription = onConnectEventManager.subscribe(null, () => {
+
+// 		})
+
+// 		if (state === STATES.CONNECTED) {
+// 			callback()
+// 		}
+
+// 		return {
+// 			unsubscribe() {
+// 				subscription.unsubcribe()
+// 			}
+// 		}
+// 	}
+
+// 	function onDisconnect(callback) {
+// 		const subscription = onDisconnectEventManager.subscribe(null, () => {
+
+// 		})
+
+// 		if (state === STATES.DISCONNECTED) {
+// 			callback()
+// 		}
+
+// 		return {
+// 			unsubscribe() {
+// 				subscription.unsubscribe()
+// 			}
+// 		}
+// 	}
+
+// 	return {
+// 		onConnect,
+// 		onDisconnect,
+// 		subscribe,
+// 		STATES,
+// 		getState() {
+// 			return state
+// 		},
+// 		publish(channel, message) {
+// 			client.publish(channel, message)
+// 		},
+// 	}
+// }
+
+// export default client
+
+function connectFaye () {
+	const client = new Faye.Client(`${window.location.pathname}/faye`)
+	
+	return new Promise((res) => {
+		client.on('transition:up', res(client))
 	})
-
-	client.on('transport:down', () => {
-		state = STATES.DISCONNECTED
-		onDisconnectEventManager.raise(null)
-	})
-
-	function onChannelMessage(channel, message, _cache) {
-		channelEventManager[channel].raise(null, message)
-
-		_cache.push(message)
-		while (_cache.length > maxChannelCacheSize) {
-			_cache.shift()
-		}
-	}
-
-	function subscribe(channel, callback, fetchHistory) {
-		let eventManager = channelEventManager[channel]
-		let needToSubscribe = false
-
-		if (eventManager === undefined) {
-			channelEventManager[channel] = EventManager.create()
-			eventManager = channelEventManager[channel]
-			needToSubscribe = true
-		}
-
-		if (cache[channel] === undefined) {
-			cache[channel] = []
-		}
-
-		const subscription = eventManager.subscribe(null, callback)
-		const cacheMessages = cache[channel]
-
-		if (fetchHistory) { }
-
-		if (needToSubscribe) {
-			fayeSubscriptions[channel] = client.subscribe(channel, (message) => {
-				onChannelMessage(channel, message, cacheMessages)
-			})
-		}
-
-		return {
-			unsubscribe(disconnect) {
-				subscription.unsubscribe()
-
-				if (disconnect && eventManager.subscribeCount() === 0) {
-					fayeSubscriptions[channel].cance()
-					delete fayeSubscriptions[channel]
-
-					delete channelEventManager[channel]
-				}
-			}
-		}
-	}
-
-	function onConnect(callback) {
-		const subscription = onConnectEventManager.subscribe(null, () => {
-
-		})
-
-		if (state === STATES.CONNECTED) {
-			callback()
-		}
-
-		return {
-			unsubscribe() {
-				subscription.unsubcribe()
-			}
-		}
-	}
-
-	function onDisconnect(callback) {
-		const subscription = onDisconnectEventManager.subscribe(null, () => {
-
-		})
-
-		if (state === STATES.DISCONNECTED) {
-			callback()
-		}
-
-		return {
-			unsubscribe() {
-				subscription.unsubscribe()
-			}
-		}
-	}
-
-	return {
-		onConnect,
-		onDisconnect,
-		subscribe,
-		STATES,
-		getState() {
-			return state
-		},
-		publish(channel, message) {
-			client.publish(channel, message)
-		},
-	}
 }
 
-export default client
+function subscribe (client, channel, dispatch) {
+	
+}
+
+function publish (client, channel, message) {
+	client.publish(channel, message)
+}
 
 /*
 	entities:

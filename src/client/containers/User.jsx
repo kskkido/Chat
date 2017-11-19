@@ -1,21 +1,30 @@
-import React, { Component } from 'react'
+/* eslint-disable no-use-before-define */
+import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { curry } from 'ramda'
 import { userColor, userMute } from 'Reducers/users'
-
-class UserController extends Component {
-	static propTypes = {
-		children: PropTypes.func.isRequired,
-		dispatchColor: Proptypes.func.isRequired,
-		dispatchMute: PropTypes.func.isRequired
-	}
-
-
-}
+import WithRender from 'Components/WithRender'
 
 const mapDispatchToProps = dispatch => ({
-	dispatchColor: (username, color) => dispatch(userColor({ username, color })),
-	dispatchMute: (username, mute) => dispatch(userMute({ username, mute }))
+	dispatchColor: curry((username, color) => dispatch(userColor({ username, color }))),
+	dispatchMute: curry((username, mute) => dispatch(userMute({ username, mute })))
 })
 
-export default connect(null, mapDispatchToProps)(User)
+const DispatchProvider = connect(null, mapDispatchToProps)(WithRender)
+
+const UserController = ({ children, username }) => (
+	<DispatchProvider>
+		{({ dispatchColor, dispatchMute }) => children({
+			handleColor: dispatchColor(username),
+			handleMute: dispatchMute(username)
+		})}
+	</DispatchProvider>
+)
+
+UserController.propTypes = {
+	children: PropTypes.func.isRequired,
+	username: PropTypes.string.isRequired
+}
+
+export default UserController

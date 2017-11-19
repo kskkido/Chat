@@ -2,15 +2,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import selectMessagesVisible from 'Reducers/selectors'
 import {
 	ChatMessagesContainer as Container,
 } from 'Components/Styles'
-import Message from './Message'
 import WithRender from 'Components/WithRender'
 import ScrollBottom from 'Components/ScrollBottom'
+import Message from './Message'
 
-const MessagesProvider = connect(({ messages }) => ({
-	messages: messages.allIds
+const MessagesProvider = connect(state => ({
+	messages: selectMessagesVisible(state)
 }))(WithRender)
 
 const MessagesList = () => (

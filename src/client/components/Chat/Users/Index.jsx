@@ -15,11 +15,12 @@ const UserList = () => (
 	<UsersProvider>
 		{({ users }) => (
 			<ChatUsersContainer>
-				{users.map(({ username, mute }) => (
+				{users.map(({ username, color, mute }) => (
 					<User
 						key={username}
-						username={username}
+						color={color}
 						mute={mute}
+						username={username}
 					/>))
 				}
 			</ChatUsersContainer>
