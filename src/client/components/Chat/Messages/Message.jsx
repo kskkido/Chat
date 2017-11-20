@@ -2,6 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import WithRender from 'Components/WithRender'
 import {
 	AppSubText as SubText,
 	ChatMessageBody as Body,
@@ -10,7 +11,6 @@ import {
 	ChatMessageContainer as Container,
 	ChatMessageText as Text,
 } from 'Components/Styles'
-import WithRender from 'Components/WithRender'
 
 /* Receives color and isSelf property from user with provided username */
 const MessageConfigProvider = connect(({ auth, users }, { username }) => ({
@@ -33,7 +33,6 @@ MessageSender.propTypes = {
 }
 
 /* ==== DISPLAY FOR CONTENT ==== */
-
 const MessageContent = ({ content, color, timestamp }) => {
 	const splitByLine = content.split('\n')
 

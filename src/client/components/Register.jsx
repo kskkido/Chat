@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropType from 'prop-types'
+import FormController from './FormController'
 import {
 	AppButton as Button,
 	UserCard as Card,
 	UserFormContainer as Form,
 } from './Styles'
-import FormController from './FormController'
 
 const UserInput = ({ authRequest, error }) => {
 	const onSubmit = ({ username }) => authRequest(username)

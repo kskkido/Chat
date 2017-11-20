@@ -1,18 +1,13 @@
 import path from 'path'
 import morgan from 'morgan'
 import express from 'express'
-import faye from 'faye'
 import bodyParser from 'body-parser'
-import { baseUrl, env, port, root } from '../../'
+import { env, port, root } from 'Root'
+import faye from './faye'
 import ssr from './ssr'
 import hmr from './hmr'
 
 const PUBLIC_PATH = path.join(root, 'dist/public')
-
-const bae = new faye.NodeAdapter({
-	mount: '/faye',
-	timeout: 45
-})
 
 const app = express()
 
@@ -35,12 +30,12 @@ export default app
 
 if (module === require.main) {
 	const server = app.listen(port, () => {
-		console.log('connected')
+		console.log('connected HTML server')
 		const { address } = server.address()
 		const host = address === '::' ? 'localhost' : address
 		const urlSafeHost = host.includes(':') ? `[${host}]` : host
-		console.log(`Listening on http://${urlSafeHost}:${port}`)
+		console.log(`Listening HTML connection on http://${urlSafeHost}:${port}`)
 	})
 
-	bae.attach(server)
+	faye(server)
 }

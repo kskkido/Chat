@@ -19,7 +19,6 @@ const App = () => (
 					authRequest={authRequest}
 				/> :
 				<Faye render={({ createChannel, client }) => (
-
 					<Subscribe createChannel={createChannel}>
 						{({ subscribe }) => (
 							<Chat
@@ -28,7 +27,6 @@ const App = () => (
 								self={username}
 							/>
 						)}
-
 					</Subscribe>
 				)}
 				/>

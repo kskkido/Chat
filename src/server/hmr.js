@@ -3,7 +3,7 @@ import express from 'express'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import configs from '../../webpack.config'
+import configs from 'Root/webpack.config'
 
 const router = express.Router()
 // webpack config is an array, [0: clientConfig, 1: serverConfig]

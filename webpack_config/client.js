@@ -9,8 +9,8 @@ const PATHS = {
 	entry: join(root, 'src/client'),
 	output: join(root, 'dist/public'),
 	components: join(root, 'src/client/components'),
+	constants: join(root, 'src/client/constants.js'),
 	reducers: join(root, 'src/client/reducers'),
-	utils: join(root, 'src/client/utils')
 }
 
 const commonConfig = {
@@ -27,18 +27,12 @@ const commonConfig = {
 	resolve: {
 		alias: {
 			Components: PATHS.components,
+			Constants: PATHS.constants,
 			Reducers: PATHS.reducers,
 			Utils: PATHS.utils,
 		},
-		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '*']
+		extensions: ['.js', '.jsx', '.json', '*']
 	},
-	module: {
-		rules: [{
-			test: /\.tsx?$/,
-			exclude: /(node_modules|bower_components)/,
-			loader: ['react-hot-loader/webpack', 'awesome-typescript-loader']
-		}]
-	}
 }
 
 const prodConfig = {

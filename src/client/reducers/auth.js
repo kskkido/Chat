@@ -1,4 +1,8 @@
-import { actionCreator, createReducer, updateObject } from 'Utils/reducers'
+import {
+	actionCreator,
+	createReducer,
+	updateObject
+} from 'Utils'
 
 /* ====== DEFINE ACTION TYPES ====== */
 const AUTH_SUCCESS = 'AUTH_SUCCESS'

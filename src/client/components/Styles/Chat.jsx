@@ -32,23 +32,6 @@ export const ChatHeader = styled.div`
   border-width: 0 0 1px 0;
 `
 
-export const ChatUsersContainer = styled.div`
-  position: relative;
-  padding: 10px;
-  height: 95%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-`
-
-
-export const ChatUserContainer = styled.div`
-  padding: 10px 0;
-  height: 50px;
-  border-width: 0 0 1px 0;
-`
-
 export const ChatMessagesContainer = styled.div`
   position: relative;
   padding: 10px;
@@ -92,6 +75,33 @@ export const ChatMessageText = styled.span`
   }
 `
 
+export const ChatUsersContainer = styled.div`
+  position: relative;
+  padding: 10px;
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+`
+
+export const ChatUserContainer = styled.div`
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border-width: 0 0 1px 0;
+
+  & * {
+    margin 2px 0;
+  }
+`
+
+export const ChatUserButton = styled.button`
+  padding: 5px 10px;
+  border-radius: 5px;
+`
+
+
 export const ChatInputContainer = styled.div`
   position: relative;
   padding: 10px;
@@ -110,8 +120,10 @@ export const ChatInputForm = styled.form`
 
 export const ChatInputTextArea = styled.textarea`
   position: relative;
+  padding: 8px;
   height: 150px;
   width: 90%;
+  font-size: 1em;
   resize: none;
   overflow-y: scroll;
 `

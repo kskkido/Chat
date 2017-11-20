@@ -10,9 +10,10 @@ module.exports = {
 	get baseUrl() {
 		return env.BASE_URL || `http://localhost:${module.exports.port}`
 	},
+	get root() { return process.cwd() },
 	get name() { return pkg.name },
 	get port() { return env.PORT || 1337 },
-	get root() { return process.cwd() },
+	get tPort() { return module.exports.port !== 8000 ? 8000 : 8888 },
 	package: pkg,
 	env,
 }

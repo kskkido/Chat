@@ -6,7 +6,8 @@ const { root } = require('../')
 
 const PATHS = {
 	entry: join(root, 'src/server'),
-	output: join(root, 'dist/server')
+	output: join(root, 'dist/server'),
+	root
 }
 
 const commonConfig = {
@@ -17,6 +18,11 @@ const commonConfig = {
 		path: PATHS.output,
 		filename: 'index.js',
 		libraryTarget: 'commonjs2'
+	},
+	resolve: {
+		alias: {
+			Root: PATHS.root,
+		}
 	}
 }
 

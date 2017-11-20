@@ -3,9 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import selectMessagesVisible from 'Reducers/selectors'
-import {
-	ChatMessagesContainer as Container,
-} from 'Components/Styles'
+import { ChatMessagesContainer as Container } from 'Components/Styles'
 import WithRender from 'Components/WithRender'
 import ScrollBottom from 'Components/ScrollBottom'
 import Message from './Message'
@@ -17,7 +15,7 @@ const MessagesProvider = connect(state => ({
 const MessagesList = () => (
 	<MessagesProvider>
 		{({ messages }) => (
-			<ScrollBottom length={messages.length}>
+			<ScrollBottom watch={messages.length}>
 				<Container>
 					{messages.map(({ content, timestamp, username }) => (
 						<Message

@@ -19,9 +19,15 @@ import {
 	ChatMessageContainer,
 	ChatMessageText,
 	ChatMessagesContainer,
+	ChatUserButton,
 	ChatUserContainer,
 	ChatUsersContainer,
 } from './Chat'
+
+import {
+	ColorTable,
+	ColorCell,
+} from './Color'
 
 import {
 	UserCard,
@@ -46,8 +52,11 @@ module.exports = {
 	ChatMessageContainer,
 	ChatMessageText,
 	ChatMessagesContainer,
+	ChatUserButton,
 	ChatUserContainer,
 	ChatUsersContainer,
+	ColorTable,
+	ColorCell,
 	UserCard,
 	UserFormContainer
 }

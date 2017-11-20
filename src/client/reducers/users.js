@@ -1,7 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
-/* import/no-unresolved */
-import { actionCreator, createReducer, createSubstateFactory, mapHandlers, updateObject } from 'Utils/reducers'
 import { identity, map } from 'ramda'
+import { COLORS } from 'Constants'
+import {
+	actionCreator,
+	createReducer,
+	createSubstateFactory,
+	updateObject
+} from 'Utils'
 
 /* ====== DEFINE ACTION TYPES ====== */
 const USER_CONNECT = 'USER_CONNECT'
@@ -21,7 +26,7 @@ const initialState = { // id of users
 
 const initialUserState = { // user state
 	username: '',
-	color: 'black',
+	color: COLORS.black,
 	mute: false,
 }
 
@@ -41,7 +46,7 @@ const onUserConnect = identity
 const onUserColor = (userState, { payload }) => {
 	const { color } = payload
 	const newUserState = updateObject(userState, { color })
-
+	console.log(newUserState, ' what')
 	return newUserState
 }
 
@@ -57,7 +62,7 @@ const onUserMute = (userState, { payload }) => {
 
 const usersReducer = createReducer(initialState, withUser({
 	USER_CONNECT: onUserConnect, // passes through userReducer to create new user
-	USER_CATEGORY: onUserColor,
+	USER_COLOR: onUserColor,
 	USER_MUTE: onUserMute,
 }))
 

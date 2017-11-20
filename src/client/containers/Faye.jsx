@@ -1,8 +1,8 @@
 /* global Faye, window */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { values } from 'ramda'
-import { channelMulticastFactory } from 'Utils/observable'
+import { keys } from 'ramda'
+import { channelMulticastFactory } from 'Utils'
 
 class FayeProvider extends Component {
 	static propTypes = {
@@ -17,7 +17,7 @@ class FayeProvider extends Component {
 	}
 
 	componentWillUnmount() {
-		Reflect.ownKeys(this.channelManager).forEach(console.log)
+		keys(this.channelManager).forEach(this.unsubscribe)
 
 		this.client.publish('/meta/disconnect')
 	}
@@ -31,6 +31,10 @@ class FayeProvider extends Component {
 		}
 
 		return multicast
+	}
+
+	unsubscribe = (channel) => {
+		delete this.channelManager[channel]
 	}
 
 	render() {

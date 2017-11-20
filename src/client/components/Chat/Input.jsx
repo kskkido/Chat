@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import FormController from 'Components/FormController'
 import {
 	AppButton as Button,
 	ChatInputContainer as Container,
 	ChatInputForm as Form,
 	ChatInputTextArea as TextArea,
 } from 'Components/Styles'
-import FormController from 'Components/FormController'
 
 const MessageInput = ({ onMessage }) => {
 	const onSubmit = ({ message }) => onMessage(message)

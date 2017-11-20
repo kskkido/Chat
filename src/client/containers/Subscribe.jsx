@@ -1,6 +1,7 @@
 /* global Faye, window */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { keys } from 'ramda'
 
 class Subscribe extends Component { // subscribe, get message
 	static propTypes = {
@@ -16,7 +17,7 @@ class Subscribe extends Component { // subscribe, get message
 
 	componentWillUnmount() {
 		/* close subscriptionManager */
-		Reflect.ownKeys(this.subscriptionManager).forEach(this.unsubscribe)
+		keys(this.subscriptionManager).forEach(this.unsubscribe)
 	}
 
 	subscribe = (channel, streamHandlerFn) => {

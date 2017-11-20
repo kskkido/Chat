@@ -1,7 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* import/no-unresolved */
-import { actionCreator, createReducer, createSubstateFactory, updateObject } from 'Utils/reducers'
 import { userConnect } from './users'
+import {
+	actionCreator,
+	createReducer,
+	createSubstateFactory,
+	updateObject
+} from 'Utils'
 
 /* ====== DEFINE ACTION TYPES ====== */
 const MESSAGE_CREATE = 'MESSAGE_CREATE'

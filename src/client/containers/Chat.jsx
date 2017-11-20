@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { userConnect, userDisconnect } from 'Reducers/users'
 import { messageCreateWithUser } from 'Reducers/messages'
-import Chat from '../components/Chat'
+import Chat from 'Components/Chat'
 
 class ChatContainer extends Component { // subscribe, get message
 	static propTypes = {

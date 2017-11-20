@@ -5,15 +5,15 @@ import PropTypes from 'prop-types'
 class ScrollBottom extends Component {
 	static propTypes = {
 		children: PropTypes.node.isRequired,
-		length: PropTypes.number
+		watch: PropTypes.number
 	}
 
 	static defaultProps = {
-		length: 0
+		watch: 0
 	}
 
 	componentDidUpdate(nextProps) {
-		if (this.props.length !== nextProps.length) {
+		if (this.props.watch !== nextProps.watch) {
 			const { scrollHeight } = this.target
 
 			this.target.scrollTop = scrollHeight

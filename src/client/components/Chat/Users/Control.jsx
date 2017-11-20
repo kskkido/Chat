@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-const colors = {
-
-}
+import { ChatUserButton as Button } from 'Components/Styles'
+import ColorPallete from './Color'
 
 const Control = ({
 	color,
@@ -12,11 +10,13 @@ const Control = ({
 	handleMute
 }) => (
 	<div>
-		<button
-			onClick={() => handleMute(!mute)}
-		>
+		<ColorPallete
+			color={color}
+			handleClick={handleColor}
+		/>
+		<Button onClick={() => handleMute(!mute)}>
 			{mute ? 'unmute' : 'mute'}
-		</button>
+		</Button>
 	</div>
 )
 
