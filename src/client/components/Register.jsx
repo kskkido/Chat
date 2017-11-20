@@ -1,10 +1,14 @@
+/* eslint-disable no-use-before-define */
 import React, { Component } from 'react'
 import PropType from 'prop-types'
 import FormController from './FormController'
 import {
 	AppButton as Button,
+	AppError as Error,
+	AppOverlay as Overlay,
 	UserCard as Card,
 	UserFormContainer as Form,
+	UserInput as Input,
 } from './Styles'
 
 /* register username */
@@ -13,23 +17,22 @@ const Register = ({ authRequest, error }) => {
 
 	return (
 		<Card>
+			<Overlay />
 			<FormController onSubmit={onSubmit} >
 				{({ handleChange, handleSubmit, inputValues }) => (
 					<Form onSubmit={handleSubmit}>
-						<input
+						<Input
 							name="username"
 							onChange={handleChange}
 							value={inputValues.username || ''}
 							placeholder="give yourself a name..."
+							onKeyPress={e => isEnter(e) && handleSubmit()}
 						/>
 						{error.length > 0 && (
-							<div>
+							<Error>
 								{error}
-							</div>
+							</Error>
 						)}
-						<Button>
-							clit me
-						</Button>
 					</Form>
 				)}
 			</FormController>
@@ -44,6 +47,10 @@ Register.propTypes = {
 
 Register.defaultProps = {
 	error: ''
+}
+
+function isEnter({ nativeEvent: { keyCode } }) {
+	return keyCode === 13
 }
 
 export default Register

@@ -5,18 +5,23 @@ import { Global } from './components/Styles'
 import Auth from './components/Auth'
 import Chat from './components/Chat'
 import Faye from './components/Faye'
+import Modal from './components/Modal'
 import Register from './components/Register'
 
 injectGlobal`${Global}`
 
 const App = () => (
 	<Auth>
-		{ ({ username, error, authRequest }) =>
-			username === null ?
-				<Register
-					error={error}
-					authRequest={authRequest}
-				/> :
+		{ ({ username, error, authRequest }) => (
+			<div>
+				{username === null && (
+					<Modal>
+						<Register
+							error={error}
+							authRequest={authRequest}
+						/>
+					</Modal>
+				)}
 				<Faye>
 					{({ publish, subscribe }) => (
 						<Chat
@@ -26,7 +31,8 @@ const App = () => (
 						/>
 					)}
 				</Faye>
-		}
+			</div>
+		)}
 	</Auth>
 )
 

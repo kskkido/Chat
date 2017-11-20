@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-const CONTAINER_HEIGHT = '95vh'
-const CONTAINER_WIDTH = '95vw'
+const CONTAINER_HEIGHT = '96vh'
+const CONTAINER_WIDTH = '99vw'
 
 export const ChatContainer = styled.div`
   height: ${CONTAINER_HEIGHT};
@@ -49,7 +49,7 @@ export const ChatMessageContainer = styled.div`
 `
 
 export const ChatMessageBody = styled.div`
-  width: 80%;
+  width: 70%;
   padding: 10px;
 `
 
@@ -64,6 +64,12 @@ export const ChatMessageBodyContent = styled.div`
   max-width: 500px;
   background-color: #E0E0E0;
   border-radius: 10px;
+`
+
+export const ChatMessageBodyTime = styled.div`
+  padding-right: 10px;
+  width: 30%;
+  text-align: right;
 `
 
 export const ChatMessageText = styled.span`
@@ -126,4 +132,10 @@ export const ChatInputTextArea = styled.textarea`
   font-size: 1em;
   resize: none;
   overflow-y: scroll;
+
+  &:focus {
+    outline-color: 0;
+    outline-style: none;
+    outline-width: 0;
+  }
 `

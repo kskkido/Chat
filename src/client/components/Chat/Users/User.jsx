@@ -6,18 +6,22 @@ import WithRender from 'Components/WithRender'
 import { ChatUserContainer as Container } from 'Components/Styles'
 import Control from './Control'
 
+const mapStateToProps = ({ auth }, { username }) => ({
+	isSelf: auth.username === username
+})
+
 const mapDispatchToProps = (dispatch, { username }) => ({
 	dispatchColor: color => dispatch(userColor({ username, color })),
 	dispatchMute: mute => dispatch(userMute({ username, mute }))
 })
 
-const DispatchProvider = connect(null, mapDispatchToProps)(WithRender)
+const DispatchProvider = connect(mapStateToProps, mapDispatchToProps)(WithRender)
 
 const User = ({ mute, color, username }) => (
 	<DispatchProvider username={username}>
-		{({ dispatchColor, dispatchMute }) => (
+		{({ dispatchColor, dispatchMute, isSelf }) => (
 			<Container>
-				<div>user: {username}</div>
+				<div>user: {isSelf ? `[ ${username} ]` : username}</div>
 				<Control
 					color={color}
 					mute={mute}

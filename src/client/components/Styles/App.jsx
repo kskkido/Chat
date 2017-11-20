@@ -7,7 +7,8 @@ export const Global = css`
     color: black;
     font-family: 'Roboto', sans-serif;
     font-family: 'Open Sans', sans-serif;
-    font-size: 1em;
+    font-size: 1.2em;
+    letter-spacing: 1px;
 
     section {
       margin: 0;
@@ -35,6 +36,17 @@ export const Global = css`
       autofocus
     }
 
+    button {
+      font-size: 0.8em;
+      cursor: pointer;
+
+      &:focus {
+        outline-color: 0;
+        outline-style: none;
+        outline-width: 0;
+      }
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -57,7 +69,20 @@ export const AppButton = styled.button`
   border-radius: 10px;
 `
 
+export const AppError = styled.span`
+  color: red;
+`
+
+export const AppOverlay = styled.div`
+  position: fixed;
+  height: 110vh;
+  width: 110vw;
+  opacity: 0.7;
+  background-color: black;
+  z-index: -1;
+`
+
 export const AppSubText = styled.span`
-  font-size: 0.85em;
+  font-size: 0.8em;
   color: grey;
 `

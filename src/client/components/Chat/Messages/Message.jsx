@@ -8,6 +8,7 @@ import {
 	ChatMessageBody as Body,
 	ChatMessageBodyContent as Content,
 	ChatMessageBodySender as Sender,
+	ChatMessageBodyTime as Time,
 	ChatMessageContainer as Container,
 	ChatMessageText as Text,
 } from 'Components/Styles'
@@ -58,9 +59,11 @@ MessageContent.propTypes = {
 
 /* ==== DISPLAY FOR DATE ==== */
 const MessageDate = ({ timestamp }) => (
-	<SubText>
-		{parseDate(timestamp)}
-	</SubText>
+	<Time>
+		<SubText>
+			{parseDate(timestamp)}
+		</SubText>
+	</Time>
 )
 
 MessageDate.propTypes = {

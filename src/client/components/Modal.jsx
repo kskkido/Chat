@@ -21,7 +21,6 @@ class Modal extends Component {
 
 		this.modalChild = document.createElement(elementType)
 		this.modalRoot = document.querySelector(root)
-		this.createHandlers()
 	}
 
 	componentDidMount() {
@@ -32,24 +31,12 @@ class Modal extends Component {
 		this.remove()
 	}
 
-	createHandlers = () => {
-		if (Array.isArray(this.modalRoot)) {
-			const modalRoots = [].slice.call(this.modalRoot)
-
-			this.append = () => modalRoots.forEach(this.createAppend)
-			this.remove = () => modalRoots.forEach(this.createRemove)
-		} else {
-			this.append = () => this.createAppend(this.modalRoot)
-			this.remove = () => this.createRemove(this.modalRoot)
-		}
+	append() {
+		this.modalRoot.appendChild(this.modalChild)
 	}
 
-	createAppend() {
-		root.appendChild(this.modalChild)
-	}
-
-	createRemove() {
-		root.removeChild(this.modalChild)
+	remove() {
+		this.modalRoot.removeChild(this.modalChild)
 	}
 
 	render() {

@@ -32,7 +32,9 @@ class FormController extends React.Component {
 	}
 
 	handleSubmit = (e) => {
-		e.preventDefault()
+		if (e) {
+			e.preventDefault()
+		}
 
 		this.props.onSubmit(this.state.inputValues)
 		this.setState(() => ({ inputValues: {} }))

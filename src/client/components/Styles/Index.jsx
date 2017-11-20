@@ -2,6 +2,8 @@ import {
 	Global,
 	AppButton,
 	AppContainer,
+	AppError,
+	AppOverlay,
 	AppSubText,
 } from './App'
 
@@ -16,6 +18,7 @@ import {
 	ChatMessageBody,
 	ChatMessageBodyContent,
 	ChatMessageBodySender,
+	ChatMessageBodyTime,
 	ChatMessageContainer,
 	ChatMessageText,
 	ChatMessagesContainer,
@@ -31,12 +34,15 @@ import {
 
 import {
 	UserCard,
-	UserFormContainer
+	UserFormContainer,
+	UserInput,
 } from './User'
 
 module.exports = {
 	Global,
 	AppButton,
+	AppError,
+	AppOverlay,
 	AppSubText,
 	AppContainer,
 	ChatContainer,
@@ -49,6 +55,7 @@ module.exports = {
 	ChatMessageBody,
 	ChatMessageBodyContent,
 	ChatMessageBodySender,
+	ChatMessageBodyTime,
 	ChatMessageContainer,
 	ChatMessageText,
 	ChatMessagesContainer,
@@ -58,5 +65,6 @@ module.exports = {
 	ColorTable,
 	ColorCell,
 	UserCard,
-	UserFormContainer
+	UserFormContainer,
+	UserInput,
 }

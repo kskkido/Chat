@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -74,8 +74,8 @@ module.exports =
 // define constants such as env
 // module.exports getters that check for environment variables
 // some how make symlink work like bones
-var pkg = __webpack_require__(12);
-var process = __webpack_require__(13);
+var pkg = __webpack_require__(11);
+var process = __webpack_require__(12);
 
 var env = process.env;
 
@@ -119,6 +119,24 @@ module.exports = require("path");
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("webpack");
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("webpack-merge");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -168,32 +186,13 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 3 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("ramda");
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("webpack");
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = require("webpack-merge");
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("express");
-
-/***/ }),
-/* 7 */,
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -207,29 +206,29 @@ var _path = __webpack_require__(1);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _morgan = __webpack_require__(10);
+var _morgan = __webpack_require__(9);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _express = __webpack_require__(6);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _bodyParser = __webpack_require__(11);
+var _bodyParser = __webpack_require__(10);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
 var _Root = __webpack_require__(0);
 
-var _tcp = __webpack_require__(14);
+var _tcp = __webpack_require__(13);
 
 var _tcp2 = _interopRequireDefault(_tcp);
 
-var _send = __webpack_require__(35);
+var _send = __webpack_require__(36);
 
 var _send2 = _interopRequireDefault(_send);
 
-var _hmr = __webpack_require__(22);
+var _hmr = __webpack_require__(21);
 
 var _hmr2 = _interopRequireDefault(_hmr);
 
@@ -278,10 +277,10 @@ var _temp = function () {
 }();
 
 ;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)(module)))
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -309,19 +308,19 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -387,13 +386,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("process");
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -403,17 +402,17 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _faye = __webpack_require__(15);
+var _faye = __webpack_require__(14);
 
 var _faye2 = _interopRequireDefault(_faye);
 
-var _net = __webpack_require__(16);
+var _net = __webpack_require__(15);
 
 var _net2 = _interopRequireDefault(_net);
 
 var _Root = __webpack_require__(0);
 
-var _sockets = __webpack_require__(17);
+var _sockets = __webpack_require__(16);
 
 var _sockets2 = _interopRequireDefault(_sockets);
 
@@ -452,19 +451,19 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("faye");
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -474,13 +473,13 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _tcp = __webpack_require__(2);
+var _tcp = __webpack_require__(5);
 
-var _handshake = __webpack_require__(32);
+var _handshake = __webpack_require__(33);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _faye = __webpack_require__(18);
+var _faye = __webpack_require__(17);
 
 var _faye2 = _interopRequireDefault(_faye);
 
@@ -560,7 +559,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -570,11 +569,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _ramda = __webpack_require__(3);
+var _ramda = __webpack_require__(6);
 
-var _faye = __webpack_require__(19);
+var _faye = __webpack_require__(31);
 
-var _tcp = __webpack_require__(2);
+var _tcp = __webpack_require__(5);
 
 /* store subscriptions */
 var channelManager = {};
@@ -644,86 +643,15 @@ var _temp = function () {
 ;
 
 /***/ }),
+/* 18 */,
 /* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.unsubscribeChannels = exports.createChannel = undefined;
-
-var _rxjs = __webpack_require__(20);
-
-var _rxjs2 = _interopRequireDefault(_rxjs);
-
-var _ramda = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var observableFactory = function observableFactory(handlerFn) {
-	return (0, _ramda.compose)(_rxjs2.default.Observable.create, handlerFn);
-};
-var multicastFactory = function multicastFactory(observable) {
-	return observable.multicast(new _rxjs2.default.Subject());
-};
-
-var channelObservableFactory = observableFactory(function (client, channel) {
-	return function (obs) {
-		var subscription = client.subscribe(channel, function (message) {
-			return obs.next(message);
-		});
-
-		return {
-			unsubscribe: function unsubscribe() {
-				return subscription.cancel();
-			}
-		};
-	};
-});
-
-/*
-	creates observable multicast with refcount which automatically connects upon subscription and
-	unconnects when all subscribers unsubscribe
-*/
-var createChannel = exports.createChannel = (0, _ramda.compose)((0, _ramda.invoker)(0, 'refCount'), multicastFactory, channelObservableFactory);
-
-var unsubscribeChannels = exports.unsubscribeChannels = function unsubscribeChannels(unsubscribeFn, managerObj) {
-	return (0, _ramda.mapObjIndexed)(function (_, channel) {
-		return unsubscribeFn(channel);
-	}, managerObj);
-};
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(createChannel, 'createChannel', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
-
-	__REACT_HOT_LOADER__.register(unsubscribeChannels, 'unsubscribeChannels', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
-
-	__REACT_HOT_LOADER__.register(observableFactory, 'observableFactory', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
-
-	__REACT_HOT_LOADER__.register(multicastFactory, 'multicastFactory', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
-
-	__REACT_HOT_LOADER__.register(channelObservableFactory, 'channelObservableFactory', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
-}();
-
-;
-
-/***/ }),
-/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("rxjs");
 
 /***/ }),
-/* 21 */,
-/* 22 */
+/* 20 */,
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -733,23 +661,23 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _express = __webpack_require__(6);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _webpack = __webpack_require__(4);
+var _webpack = __webpack_require__(2);
 
 var _webpack2 = _interopRequireDefault(_webpack);
 
-var _webpackDevMiddleware = __webpack_require__(23);
+var _webpackDevMiddleware = __webpack_require__(22);
 
 var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-var _webpackHotMiddleware = __webpack_require__(24);
+var _webpackHotMiddleware = __webpack_require__(23);
 
 var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-var _webpack3 = __webpack_require__(25);
+var _webpack3 = __webpack_require__(24);
 
 var _webpack4 = _interopRequireDefault(_webpack3);
 
@@ -788,26 +716,26 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-dev-middleware");
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-hot-middleware");
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 // const npmEvent = process.env.npm_lifecycle_event;
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(25);
 ;
 
 var _temp = function () {
@@ -819,7 +747,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -829,9 +757,9 @@ var _temp = function () {
 var _require = __webpack_require__(0),
     env = _require.env;
 
-var clientConfig = __webpack_require__(27);
-var serverConfig = __webpack_require__(29);
-var applyBaseConfig = __webpack_require__(31)(env);
+var clientConfig = __webpack_require__(26);
+var serverConfig = __webpack_require__(28);
+var applyBaseConfig = __webpack_require__(30)(env);
 
 module.exports = [clientConfig, serverConfig].map(applyBaseConfig);
 ;
@@ -847,16 +775,16 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /* eslint-disable import/no-extraneous-dependencies */
-var webpack = __webpack_require__(4);
-var merge = __webpack_require__(5);
-var CompressionPlugin = __webpack_require__(28);
+var webpack = __webpack_require__(2);
+var merge = __webpack_require__(3);
+var CompressionPlugin = __webpack_require__(27);
 
 var _require = __webpack_require__(1),
     join = _require.join;
@@ -941,21 +869,21 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("compression-webpack-plugin");
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /* eslint-disable import/no-extraneous-dependencies */
-var nodeExternals = __webpack_require__(30);
-var merge = __webpack_require__(5);
+var nodeExternals = __webpack_require__(29);
+var merge = __webpack_require__(3);
 
 var _require = __webpack_require__(1),
     join = _require.join;
@@ -1011,21 +939,21 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-node-externals");
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /* eslint-disable import/no-extraneous-dependencies */
-var webpack = __webpack_require__(4);
-var merge = __webpack_require__(5);
+var webpack = __webpack_require__(2);
+var merge = __webpack_require__(3);
 
 var _require = __webpack_require__(1),
     join = _require.join;
@@ -1099,7 +1027,80 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 32 */
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.unsubscribeChannels = exports.createChannel = undefined;
+
+var _rxjs = __webpack_require__(19);
+
+var _rxjs2 = _interopRequireDefault(_rxjs);
+
+var _ramda = __webpack_require__(6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var observableFactory = function observableFactory(handlerFn) {
+	return (0, _ramda.compose)(_rxjs2.default.Observable.create, handlerFn);
+};
+var multicastFactory = function multicastFactory(observable) {
+	return observable.multicast(new _rxjs2.default.Subject());
+};
+
+var channelObservableFactory = observableFactory(function (client, channel) {
+	return function (obs) {
+		var subscription = client.subscribe(channel, function (message) {
+			return obs.next(message);
+		});
+
+		return {
+			unsubscribe: function unsubscribe() {
+				return subscription.cancel();
+			}
+		};
+	};
+});
+
+/*
+	creates observable multicast with refcount which automatically connects upon subscription and
+	unconnects when all subscribers unsubscribe
+*/
+var createChannel = exports.createChannel = (0, _ramda.compose)((0, _ramda.invoker)(0, 'refCount'), multicastFactory, channelObservableFactory);
+
+var unsubscribeChannels = exports.unsubscribeChannels = function unsubscribeChannels(unsubscribeFn, managerObj) {
+	return (0, _ramda.mapObjIndexed)(function (_, channel) {
+		return unsubscribeFn(channel);
+	}, managerObj);
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(createChannel, 'createChannel', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
+
+	__REACT_HOT_LOADER__.register(unsubscribeChannels, 'unsubscribeChannels', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
+
+	__REACT_HOT_LOADER__.register(observableFactory, 'observableFactory', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
+
+	__REACT_HOT_LOADER__.register(multicastFactory, 'multicastFactory', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
+
+	__REACT_HOT_LOADER__.register(channelObservableFactory, 'channelObservableFactory', '/Users/Kidokeisuke/bitcraft/src/utils/faye.js');
+}();
+
+;
+
+/***/ }),
+/* 32 */,
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1109,13 +1110,13 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _ramda = __webpack_require__(3);
+var _ramda = __webpack_require__(6);
 
 var _Root = __webpack_require__(0);
 
-var _tcp = __webpack_require__(2);
+var _tcp = __webpack_require__(5);
 
-var _validations = __webpack_require__(33);
+var _validations = __webpack_require__(34);
 
 var handleInput = function handleInput(socket) {
 	return new Promise(function (res, rej) {
@@ -1164,7 +1165,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1180,7 +1181,7 @@ var username = exports.username = function username() {
 	var error = '';
 
 	if (!/^\w+$/.test(_username)) {
-		error += 'username must consist of alphabets';
+		error += 'username cannot contain space or special characters';
 	}
 
 	return error;
@@ -1198,8 +1199,8 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 34 */,
-/* 35 */
+/* 35 */,
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

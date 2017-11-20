@@ -6,13 +6,12 @@ export const UserCard = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 10px;
-  height: 40vh;
+  height: 50vh;
   width: 40%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid;
 
   * {
     margin: 10px 0;
@@ -20,6 +19,27 @@ export const UserCard = styled.div`
 `
 
 export const UserFormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+
+  & button {
+    align-self: flex-end;
+  }
+`
+
+export const UserInput = styled.input`
+  padding: 10px 30px;
+  width: 100%;
+  color: grey;
+  font-size: 1.3em;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: white;
+  background-color: transparent;
+  letter-spacing: 1px;
+
+  &:focus {
+    outline-color: 0;
+    outline-style: none;
+    outline-width: 0;
+  }
 `
