@@ -6,7 +6,7 @@ import {
 	createReducer,
 	createSubstateFactory,
 	updateObject
-} from 'Utils'
+} from 'Utils/reducers'
 
 /* ====== DEFINE ACTION TYPES ====== */
 const USER_CONNECT = 'USER_CONNECT'

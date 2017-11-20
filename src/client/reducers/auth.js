@@ -1,8 +1,9 @@
+import { username as validate } from 'Utils/validations'
 import {
 	actionCreator,
 	createReducer,
 	updateObject
-} from 'Utils'
+} from 'Utils/reducers'
 
 /* ====== DEFINE ACTION TYPES ====== */
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
@@ -31,15 +32,6 @@ const reducer = createReducer(initialState, {
 export default reducer
 
 /* ====== DEFINE DISPATCHER ====== */
-const validate = (username = '') => {
-	let error = ''
-
-	if (!/^\w+$/.test(username)) {
-		error += 'username must consist of alphabets\n'
-	}
-
-	return error
-}
 
 export const authRequest = username => (dispatch) => {
 	const error = validate(username)

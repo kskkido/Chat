@@ -20,7 +20,7 @@ const MessageInput = ({ onMessage }) => {
 							name="message"
 							onChange={handleChange}
 							value={inputValues.message || ''}
-							placeholder="send a text"
+							placeholder="send a message..."
 						/>
 						<Button>Send</Button>
 					</Form>

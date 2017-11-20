@@ -1,13 +1,12 @@
-/* eslint-disable react/no-array-index-key, no-use-before-define */
 import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import selectMessagesVisible from 'Reducers/selectors'
 import { ChatMessagesContainer as Container } from 'Components/Styles'
 import WithRender from 'Components/WithRender'
 import ScrollBottom from 'Components/ScrollBottom'
 import Message from './Message'
 
+/* selects messages from non-muted users */
 const MessagesProvider = connect(state => ({
 	messages: selectMessagesVisible(state)
 }))(WithRender)
@@ -30,9 +29,5 @@ const MessagesList = () => (
 		)}
 	</MessagesProvider>
 )
-
-function parseDate(timestamp) {
-	return (new Date(timestamp)).toLocaleString()
-}
 
 export default MessagesList

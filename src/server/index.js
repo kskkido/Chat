@@ -3,8 +3,8 @@ import morgan from 'morgan'
 import express from 'express'
 import bodyParser from 'body-parser'
 import { env, port, root } from 'Root'
-import faye from './faye'
-import ssr from './ssr'
+import tcp from './tcp'
+import send from './send'
 import hmr from './hmr'
 
 const PUBLIC_PATH = path.join(root, 'dist/public')
@@ -21,7 +21,7 @@ export default app
 
 	.use('/public', express.static(PUBLIC_PATH))
 
-	.get('*', ssr)
+	.get('*', send)
 
 	.use((err, req, res) => {
 		console.error(err)
@@ -37,5 +37,5 @@ if (module === require.main) {
 		console.log(`Listening HTML connection on http://${urlSafeHost}:${port}`)
 	})
 
-	faye(server)
+	tcp(server)
 }

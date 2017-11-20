@@ -7,7 +7,7 @@ import {
 	UserFormContainer as Form,
 } from './Styles'
 
-const UserInput = ({ authRequest, error }) => {
+const Register = ({ authRequest, error }) => {
 	const onSubmit = ({ username }) => authRequest(username)
 
 	return (
@@ -36,13 +36,13 @@ const UserInput = ({ authRequest, error }) => {
 	)
 }
 
-UserInput.propTypes = {
+Register.propTypes = {
 	authRequest: PropType.func.isRequired,
 	error: PropType.string
 }
 
-UserInput.defaultProps = {
+Register.defaultProps = {
 	error: ''
 }
 
-export default UserInput
+export default Register

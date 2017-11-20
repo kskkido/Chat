@@ -9,26 +9,24 @@ import {
 
 const COLOR_KEYS = Reflect.ownKeys(COLORS)
 
-const ColorPallete = ({ color, handleClick }) => {
+const ColorPallete = ({ color, handleClick }) => (
+	<Table>
+		{COLOR_KEYS.map((key) => {
+			const COLOR = COLORS[key]
 
-	return (
-		<Table>
-			{COLOR_KEYS.map((key) => {
-				const COLOR = COLORS[key]
+			return (
+				<li key={key}>
+					<TableCell
+						active={color === COLOR}
+						color={COLOR}
+						onClick={() => handleClick(COLOR)}
+					/>
+				</li>
+			)
+		})}
+	</Table>
+)
 
-				return (
-					<li key={key}>
-						<TableCell
-							active={color === COLOR}
-							color={COLOR}
-							onClick={() => handleClick(COLOR)}
-						/>
-					</li>
-				)
-			})}
-		</Table>
-	)
-}
 
 ColorPallete.propTypes = {
 	color: PropTypes.string.isRequired,

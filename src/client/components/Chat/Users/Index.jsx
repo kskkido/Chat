@@ -1,11 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import { values } from 'ramda'
-import {
-	ChatUserContainer,
-	ChatUsersContainer,
-} from 'Components/Styles'
+import { ChatUsersContainer } from 'Components/Styles'
 import WithRender from 'Components/WithRender'
 import User from './User'
 

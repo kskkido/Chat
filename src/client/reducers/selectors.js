@@ -1,4 +1,4 @@
-import { combineSelectors } from 'Utils'
+import { combineSelectors } from 'Utils/selectors'
 
 const getMessages = state => state.messages.allIds
 const getUsers = state => state.users

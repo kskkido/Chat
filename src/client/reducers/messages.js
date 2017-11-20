@@ -6,7 +6,7 @@ import {
 	createReducer,
 	createSubstateFactory,
 	updateObject
-} from 'Utils'
+} from 'Utils/reducers'
 
 /* ====== DEFINE ACTION TYPES ====== */
 const MESSAGE_CREATE = 'MESSAGE_CREATE'

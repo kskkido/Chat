@@ -1,12 +1,12 @@
 /* global Faye, window */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { keys } from 'ramda'
+import { unsubscribeChannels } from 'Utils/faye'
 
 class Subscribe extends Component { // subscribe, get message
 	static propTypes = {
 		children: PropTypes.func.isRequired,
-		createChannel: PropTypes.func.isRequired,
+		subscribeChannel: PropTypes.func.isRequired,
 	}
 
 	constructor(props) {
@@ -16,13 +16,13 @@ class Subscribe extends Component { // subscribe, get message
 	}
 
 	componentWillUnmount() {
-		/* close subscriptionManager */
-		keys(this.subscriptionManager).forEach(this.unsubscribe)
+		unsubscribeChannels(this.unsubscribe, this.subscriptionManager)
 	}
 
 	subscribe = (channel, streamHandlerFn) => {
-		const channelMulticast = this.props.createChannel(channel)
-		const subscription = streamHandlerFn(channelMulticast)
+		const channel$ = this.props.subscribeChannel(channel)
+		const subscription = streamHandlerFn(channel$)
+
 		this.subscriptionManager[channel] = subscription
 	}
 

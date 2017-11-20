@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { compose, identity, map, merge, prop } from 'ramda'
+import { compose, identity, merge, prop } from 'ramda'
 
 export const actionCreator = (type, fn = identity) => obj => ({ type, payload: fn(obj) })
 

@@ -1,33 +1,32 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { curry } from 'ramda'
 import { userColor, userMute } from 'Reducers/users'
+import WithRender from 'Components/WithRender'
 import { ChatUserContainer as Container } from 'Components/Styles'
 import Control from './Control'
-import WithRender from 'Components/WithRender'
 
-const mapDispatchToProps = dispatch => ({
-	dispatchColor: curry((username, color) => dispatch(userColor({ username, color }))),
-	dispatchMute: curry((username, mute) => dispatch(userMute({ username, mute })))
+const mapDispatchToProps = (dispatch, { username }) => ({
+	dispatchColor: color => dispatch(userColor({ username, color })),
+	dispatchMute: mute => dispatch(userMute({ username, mute }))
 })
 
 const DispatchProvider = connect(null, mapDispatchToProps)(WithRender)
 
 const User = ({ mute, color, username }) => (
-	<Container>
-		<div>username: {username}</div>
-		<DispatchProvider>
-			{({ dispatchColor, dispatchMute }) => (
+	<DispatchProvider username={username}>
+		{({ dispatchColor, dispatchMute }) => (
+			<Container>
+				<div>user: {username}</div>
 				<Control
 					color={color}
 					mute={mute}
-					handleColor={dispatchColor(username)}
-					handleMute={dispatchMute(username)}
+					handleColor={dispatchColor}
+					handleMute={dispatchMute}
 				/>
-			)}
-		</DispatchProvider>
-	</Container>
+			</Container>
+		)}
+	</DispatchProvider>
 )
 
 User.propTypes = {

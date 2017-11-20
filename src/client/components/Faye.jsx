@@ -1,8 +1,7 @@
 /* global Faye, window */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { keys } from 'ramda'
-import { channelMulticastFactory } from 'Utils'
+import { createChannel, unsubscribeChannels } from 'Utils/faye'
 
 class FayeProvider extends Component {
 	static propTypes = {
@@ -17,21 +16,23 @@ class FayeProvider extends Component {
 	}
 
 	componentWillUnmount() {
-		keys(this.channelManager).forEach(this.unsubscribe)
+		unsubscribeChannels(this.unsubscribe, this.channelManager)
 
 		this.client.publish('/meta/disconnect')
 	}
 
-	createChannel = (channel) => {
-		let multicast = this.channelManager[channel]
+	subscribeChannel = (channel) => {
+		let channel$ = this.channelManager[channel]
 
-		if (!multicast) {
-			this.channelManager[channel] = channelMulticastFactory(this.client, channel)
-			multicast = this.channelManager[channel]
+		if (!channel$) {
+			this.channelManager[channel] = createChannel(this.client, channel)
+			channel$ = this.channelManager[channel]
 		}
 
-		return multicast
+		return channel$
 	}
+
+	publish = (channel, message) => this.client.publish(channel, message)
 
 	unsubscribe = (channel) => {
 		delete this.channelManager[channel]
@@ -39,8 +40,8 @@ class FayeProvider extends Component {
 
 	render() {
 		return this.props.render({
-			createChannel: this.createChannel,
-			client: this.client
+			subscribeChannel: this.subscribeChannel,
+			publish: this.publish
 		})
 	}
 }

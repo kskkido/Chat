@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { identity } from 'ramda'
 
 /* provides submit handler, change handler, and value to its child components */
-/* child input components must have a name props to manage values */
+/* child input components must be given a name as its props */
 class FormController extends React.Component {
 	static propTypes = {
 		children: PropTypes.func.isRequired,
