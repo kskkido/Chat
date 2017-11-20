@@ -1,12 +1,14 @@
-/* global Faye, window */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { mapObjIndexed } from 'ramda'
 import { unsubscribeChannels } from 'Utils/faye'
 
-class Subscribe extends Component { // subscribe, get message
+/* subscribes to provided channel callback pairs on mount */
+class Subscribe extends Component {
 	static propTypes = {
-		children: PropTypes.func.isRequired,
-		subscribeChannel: PropTypes.func.isRequired,
+		children: PropTypes.node.isRequired,
+		subscribe: PropTypes.func.isRequired,
+		tasks: PropTypes.objectOf(PropTypes.func).isRequired,
 	}
 
 	constructor(props) {
@@ -15,26 +17,29 @@ class Subscribe extends Component { // subscribe, get message
 		this.subscriptionManager = {}
 	}
 
-	componentWillUnmount() {
-		unsubscribeChannels(this.unsubscribe, this.subscriptionManager)
+	componentWillMount() {
+		const { tasks } = this.props
+
+		mapObjIndexed(this.subscribe, tasks)
 	}
 
-	subscribe = (channel, streamHandlerFn) => {
-		const channel$ = this.props.subscribeChannel(channel)
-		const subscription = streamHandlerFn(channel$)
+	componentWillUnmount() {
+		unsubscribeChannels(this.unsubscribe, this.subscriptionManagers)
+	}
 
-		this.subscriptionManager[channel] = subscription
+	subscribe = (callback, channel) => {
+		const { subscribe } = this.props
+
+		this.subscriptionManager[channel] = subscribe(channel, callback)
 	}
 
 	unsubscribe = (channel) => {
 		this.subscriptionManager[channel].unsubscribe()
+		delete this.subscriptionManager[channel]
 	}
 
 	render() {
-		return this.props.children({
-			subscribe: this.subscribe,
-			unsubscribe: this.unsubscribe
-		})
+		return this.props.children
 	}
 }
 

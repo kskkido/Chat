@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+/* scrolls to the bottom of child element when watch prop changes */
 class ScrollBottom extends Component {
 	static propTypes = {
 		children: PropTypes.node.isRequired,
@@ -26,6 +27,10 @@ class ScrollBottom extends Component {
 		const { children } = this.props
 		const child = React.Children.only(children)
 
+		/*
+			runs with the assumption that child is styled-component instance
+			find better way to get child ref
+		*/
 		return React.cloneElement(child, {
 			innerRef: this.receiveRef
 		})

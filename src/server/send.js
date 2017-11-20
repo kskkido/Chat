@@ -8,6 +8,7 @@ const html = 	`
 		</head>
 		<body>
 			<div id="app"></div>
+			<div id="modal-overlay"></div>
 			<script type="text/javascript" src=${baseUrl}/faye/client.js></script>
 			<script src="public/bundle.js"></script>
 		</body>

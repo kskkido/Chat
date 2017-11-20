@@ -5,7 +5,7 @@ import { createChannel, unsubscribeChannels } from 'Utils/faye'
 
 class FayeProvider extends Component {
 	static propTypes = {
-		render: PropTypes.func.isRequired
+		children: PropTypes.func.isRequired
 	}
 
 	constructor(props) {
@@ -16,12 +16,12 @@ class FayeProvider extends Component {
 	}
 
 	componentWillUnmount() {
-		unsubscribeChannels(this.unsubscribe, this.channelManager)
+		unsubscribeChannels(this.deleteChannel, this.channelManager)
 
 		this.client.publish('/meta/disconnect')
 	}
 
-	subscribeChannel = (channel) => {
+	getChannel = (channel) => {
 		let channel$ = this.channelManager[channel]
 
 		if (!channel$) {
@@ -32,15 +32,22 @@ class FayeProvider extends Component {
 		return channel$
 	}
 
-	publish = (channel, message) => this.client.publish(channel, message)
-
-	unsubscribe = (channel) => {
+	deleteChannel = (channel) => {
 		delete this.channelManager[channel]
 	}
 
+	subscribe = (channel, streamHandlerFn) => {
+		const channel$ = this.getChannel(channel)
+		const subscription = streamHandlerFn(channel$)
+
+		return subscription
+	}
+
+	publish = (channel, message) => this.client.publish(channel, message)
+
 	render() {
-		return this.props.render({
-			subscribeChannel: this.subscribeChannel,
+		return this.props.children({
+			subscribe: this.subscribe,
 			publish: this.publish
 		})
 	}

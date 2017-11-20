@@ -7,6 +7,7 @@ import {
 	UserFormContainer as Form,
 } from './Styles'
 
+/* register username */
 const Register = ({ authRequest, error }) => {
 	const onSubmit = ({ username }) => authRequest(username)
 

@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -74,8 +74,8 @@ module.exports =
 // define constants such as env
 // module.exports getters that check for environment variables
 // some how make symlink work like bones
-var pkg = __webpack_require__(11);
-var process = __webpack_require__(12);
+var pkg = __webpack_require__(12);
+var process = __webpack_require__(13);
 
 var env = process.env;
 
@@ -192,7 +192,8 @@ module.exports = require("webpack-merge");
 module.exports = require("express");
 
 /***/ }),
-/* 7 */
+/* 7 */,
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -206,7 +207,7 @@ var _path = __webpack_require__(1);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _morgan = __webpack_require__(9);
+var _morgan = __webpack_require__(10);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
@@ -214,21 +215,21 @@ var _express = __webpack_require__(6);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _bodyParser = __webpack_require__(10);
+var _bodyParser = __webpack_require__(11);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
 var _Root = __webpack_require__(0);
 
-var _tcp = __webpack_require__(13);
+var _tcp = __webpack_require__(14);
 
 var _tcp2 = _interopRequireDefault(_tcp);
 
-var _send = __webpack_require__(22);
+var _send = __webpack_require__(35);
 
 var _send2 = _interopRequireDefault(_send);
 
-var _hmr = __webpack_require__(23);
+var _hmr = __webpack_require__(22);
 
 var _hmr2 = _interopRequireDefault(_hmr);
 
@@ -277,10 +278,10 @@ var _temp = function () {
 }();
 
 ;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -308,19 +309,19 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -386,13 +387,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("process");
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -402,17 +403,17 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _faye = __webpack_require__(14);
+var _faye = __webpack_require__(15);
 
 var _faye2 = _interopRequireDefault(_faye);
 
-var _net = __webpack_require__(15);
+var _net = __webpack_require__(16);
 
 var _net2 = _interopRequireDefault(_net);
 
 var _Root = __webpack_require__(0);
 
-var _sockets = __webpack_require__(16);
+var _sockets = __webpack_require__(17);
 
 var _sockets2 = _interopRequireDefault(_sockets);
 
@@ -451,19 +452,19 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("faye");
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -475,11 +476,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _tcp = __webpack_require__(2);
 
-var _handshake = __webpack_require__(17);
+var _handshake = __webpack_require__(32);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _faye = __webpack_require__(19);
+var _faye = __webpack_require__(18);
 
 var _faye2 = _interopRequireDefault(_faye);
 
@@ -559,71 +560,6 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _ramda = __webpack_require__(3);
-
-var _Root = __webpack_require__(0);
-
-var _tcp = __webpack_require__(2);
-
-var _validations = __webpack_require__(18);
-
-var handleInput = function handleInput(socket) {
-	return new Promise(function (res, rej) {
-		socket.on('data', function handleResponse(data) {
-			var username = (0, _tcp.cleanInput)(data);
-			var error = (0, _validations.username)(username);
-
-			socket.removeListener('data', handleResponse);
-
-			return error ? rej(error) : res(username);
-		});
-	});
-};
-
-/* hacky... will be called before require(./sockets).default is called */
-var handleHandshake = function handleHandshake(nextFn) {
-	return (0, _ramda.curry)(function (bae, socket) {
-		var _error = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-
-		socket.write(_error ? 'Failed: ' + _error + '\nTry again!\n' : 'Welcome to the chat! Give yourself a username!\n');
-
-		handleInput(socket).then(function (username) {
-			return nextFn(socket, bae.getClient(_Root.baseUrl + '/faye'), username);
-		}, function (error) {
-			return handleHandshake(nextFn)(bae, socket, error);
-		});
-	});
-};
-
-var _default = handleHandshake;
-exports.default = _default;
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(handleInput, 'handleInput', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
-
-	__REACT_HOT_LOADER__.register(handleHandshake, 'handleHandshake', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
-
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
-}();
-
-;
-
-/***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -633,44 +569,10 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-/* eslint-disable import/prefer-default-export */
-var username = exports.username = function username() {
-	var _username = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-	var error = '';
-
-	if (!/^\w+$/.test(_username)) {
-		error += 'username must consist of alphabets';
-	}
-
-	return error;
-};
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(username, 'username', '/Users/Kidokeisuke/bitcraft/src/utils/validations.js');
-}();
-
-;
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
 
 var _ramda = __webpack_require__(3);
 
-var _faye = __webpack_require__(20);
+var _faye = __webpack_require__(19);
 
 var _tcp = __webpack_require__(2);
 
@@ -742,7 +644,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -753,7 +655,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.unsubscribeChannels = exports.createChannel = undefined;
 
-var _rxjs = __webpack_require__(21);
+var _rxjs = __webpack_require__(20);
 
 var _rxjs2 = _interopRequireDefault(_rxjs);
 
@@ -814,47 +716,14 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("rxjs");
 
 /***/ }),
+/* 21 */,
 /* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _Root = __webpack_require__(0);
-
-var html = '\n\t<!doctype html>\n\t<html>\n\t\t<head>\n\t\t\t<title>faye chat</title>\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="app"></div>\n\t\t\t<script type="text/javascript" src=' + _Root.baseUrl + '/faye/client.js></script>\n\t\t\t<script src="public/bundle.js"></script>\n\t\t</body>\n\t</html>\n';
-
-var _default = function _default(req, res) {
-	res.send(html);
-};
-
-exports.default = _default;
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(html, 'html', '/Users/Kidokeisuke/bitcraft/src/server/send.js');
-
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/send.js');
-}();
-
-;
-
-/***/ }),
-/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -872,15 +741,15 @@ var _webpack = __webpack_require__(4);
 
 var _webpack2 = _interopRequireDefault(_webpack);
 
-var _webpackDevMiddleware = __webpack_require__(24);
+var _webpackDevMiddleware = __webpack_require__(23);
 
 var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-var _webpackHotMiddleware = __webpack_require__(25);
+var _webpackHotMiddleware = __webpack_require__(24);
 
 var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-var _webpack3 = __webpack_require__(26);
+var _webpack3 = __webpack_require__(25);
 
 var _webpack4 = _interopRequireDefault(_webpack3);
 
@@ -919,26 +788,26 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-dev-middleware");
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-hot-middleware");
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 // const npmEvent = process.env.npm_lifecycle_event;
-module.exports = __webpack_require__(27);
+module.exports = __webpack_require__(26);
 ;
 
 var _temp = function () {
@@ -950,7 +819,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -960,9 +829,9 @@ var _temp = function () {
 var _require = __webpack_require__(0),
     env = _require.env;
 
-var clientConfig = __webpack_require__(28);
-var serverConfig = __webpack_require__(30);
-var applyBaseConfig = __webpack_require__(32)(env);
+var clientConfig = __webpack_require__(27);
+var serverConfig = __webpack_require__(29);
+var applyBaseConfig = __webpack_require__(31)(env);
 
 module.exports = [clientConfig, serverConfig].map(applyBaseConfig);
 ;
@@ -978,7 +847,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -987,7 +856,7 @@ var _temp = function () {
 /* eslint-disable import/no-extraneous-dependencies */
 var webpack = __webpack_require__(4);
 var merge = __webpack_require__(5);
-var CompressionPlugin = __webpack_require__(29);
+var CompressionPlugin = __webpack_require__(28);
 
 var _require = __webpack_require__(1),
     join = _require.join;
@@ -1072,20 +941,20 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("compression-webpack-plugin");
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /* eslint-disable import/no-extraneous-dependencies */
-var nodeExternals = __webpack_require__(31);
+var nodeExternals = __webpack_require__(30);
 var merge = __webpack_require__(5);
 
 var _require = __webpack_require__(1),
@@ -1142,13 +1011,13 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-node-externals");
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1225,6 +1094,140 @@ var _temp = function () {
 	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
 
 	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+}();
+
+;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _ramda = __webpack_require__(3);
+
+var _Root = __webpack_require__(0);
+
+var _tcp = __webpack_require__(2);
+
+var _validations = __webpack_require__(33);
+
+var handleInput = function handleInput(socket) {
+	return new Promise(function (res, rej) {
+		socket.on('data', function handleResponse(data) {
+			var username = (0, _tcp.cleanInput)(data);
+			var error = (0, _validations.username)(username);
+
+			socket.removeListener('data', handleResponse);
+
+			return error ? rej(error) : res(username);
+		});
+	});
+};
+
+/* hacky... will be called before require(./sockets).default is called */
+var handleHandshake = function handleHandshake(nextFn) {
+	return (0, _ramda.curry)(function (bae, socket) {
+		var _error = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+		socket.write(_error ? 'Failed: ' + _error + '\nTry again!\n' : 'Welcome to the chat! Give yourself a username!\n');
+
+		handleInput(socket).then(function (username) {
+			return nextFn(socket, bae.getClient(_Root.baseUrl + '/faye'), username);
+		}, function (error) {
+			return handleHandshake(nextFn)(bae, socket, error);
+		});
+	});
+};
+
+var _default = handleHandshake;
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(handleInput, 'handleInput', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
+
+	__REACT_HOT_LOADER__.register(handleHandshake, 'handleHandshake', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
+}();
+
+;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+/* eslint-disable import/prefer-default-export */
+var username = exports.username = function username() {
+	var _username = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+	var error = '';
+
+	if (!/^\w+$/.test(_username)) {
+		error += 'username must consist of alphabets';
+	}
+
+	return error;
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(username, 'username', '/Users/Kidokeisuke/bitcraft/src/utils/validations.js');
+}();
+
+;
+
+/***/ }),
+/* 34 */,
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _Root = __webpack_require__(0);
+
+var html = '\n\t<!doctype html>\n\t<html>\n\t\t<head>\n\t\t\t<title>faye chat</title>\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="app"></div>\n\t\t\t<div id="modal-overlay"></div>\n\t\t\t<script type="text/javascript" src=' + _Root.baseUrl + '/faye/client.js></script>\n\t\t\t<script src="public/bundle.js"></script>\n\t\t</body>\n\t</html>\n';
+
+var _default = function _default(req, res) {
+	res.send(html);
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(html, 'html', '/Users/Kidokeisuke/bitcraft/src/server/send.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/send.js');
 }();
 
 ;
