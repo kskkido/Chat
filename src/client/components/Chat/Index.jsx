@@ -33,8 +33,12 @@ const Chat = ({ publish, self, subscribe }) => (
 
 Chat.propTypes = {
 	publish: PropTypes.func.isRequired,
-	self: PropTypes.string.isRequired,
 	subscribe: PropTypes.func.isRequired,
+	self: PropTypes.string,
+}
+
+Chat.defaultProps = {
+	self: ''
 }
 
 export default Chat

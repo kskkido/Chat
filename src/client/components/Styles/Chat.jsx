@@ -4,11 +4,15 @@ const CONTAINER_HEIGHT = '96vh'
 const CONTAINER_WIDTH = '99vw'
 
 export const ChatContainer = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
   height: ${CONTAINER_HEIGHT};
   width: ${CONTAINER_WIDTH};
   display: flex;
   flex-direction: row;
   border: 1px solid;
+  transform: translate(-50%, -50%);
 `
 
 export const ChatLeft = styled.section`
@@ -74,7 +78,7 @@ export const ChatMessageBodyTime = styled.div`
 
 export const ChatMessageText = styled.span`
   display: block;
-  color: ${props => props.color || 'black'};
+  color: ${props => props.color};
 
   &:before {
     content: "\00a0";

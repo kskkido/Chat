@@ -1,4 +1,4 @@
-/* eslint-disable react/no-array-index-key, no-use-before-define */
+/* eslint-disable react/no-array-index-key */
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'

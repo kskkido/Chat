@@ -1,6 +1,7 @@
 import faye from 'faye'
 import net from 'net'
 import { baseUrl, tPort } from 'Root'
+import onHandshake from './handshake'
 import createSocketEvents from './sockets'
 
 export default (HTMLServer) => {
@@ -8,8 +9,8 @@ export default (HTMLServer) => {
 		mount: '/faye',
 		timeout: 45
 	})
-	const newSocket = createSocketEvents(bae)
-	const server = net.createServer(newSocket)
+	const onNewsocket = onHandshake(createSocketEvents, bae)
+	const server = net.createServer(onNewsocket)
 
 	bae.attach(HTMLServer)
 

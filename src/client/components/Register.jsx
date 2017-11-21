@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import React, { Component } from 'react'
 import PropType from 'prop-types'
 import FormController from './FormController'
@@ -16,8 +15,7 @@ const Register = ({ authRequest, error }) => {
 	const onSubmit = ({ username }) => authRequest(username)
 
 	return (
-		<Card>
-			<Overlay />
+		<Overlay>
 			<FormController onSubmit={onSubmit} >
 				{({ handleChange, handleSubmit, inputValues }) => (
 					<Form onSubmit={handleSubmit}>
@@ -36,7 +34,7 @@ const Register = ({ authRequest, error }) => {
 					</Form>
 				)}
 			</FormController>
-		</Card>
+		</Overlay>
 	)
 }
 

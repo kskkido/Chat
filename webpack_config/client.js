@@ -7,7 +7,7 @@ const { root } = require('../')
 
 const PATHS = {
 	entry: join(root, 'src/client'),
-	output: join(root, 'dist/public'),
+	output: join(root, 'dist'),
 	components: join(root, 'src/client/components'),
 	constants: join(root, 'src/client/constants.js'),
 	reducers: join(root, 'src/client/reducers'),
@@ -22,7 +22,7 @@ const commonConfig = {
 	output: {
 		path: PATHS.output,
 		filename: 'bundle.js',
-		publicPath: '/public'
+		publicPath: '/dist'
 	},
 	resolve: {
 		alias: {

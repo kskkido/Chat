@@ -15,7 +15,7 @@ export const authFail = actionCreator(AUTH_FAIL)
 
 /* ====== DEFINE STATE ====== */
 const initialState = {
-	username: null,
+	username: '',
 	error: ''
 }
 

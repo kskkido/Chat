@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha --compilers js:babel-register --watch-extensions js,jsx tests/**/*.test.js",
     "build": "webpack",
-    "start": "node ./dist/server",
-    "start-dev": "NODE_ENV=development webpack -w & NODE_ENV=development node ./dist/server",
+    "start": "node ./server",
+    "start-dev": "NODE_ENV=development webpack -w & NODE_ENV=development node ./server",
     "start-prod": "NODE_ENV=production webpack && npm run start"
   },
   "keywords": [],

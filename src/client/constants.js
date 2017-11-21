@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-
 export const COLORS = {
 	black: '#212121',
 	blue: '#03A9F4',

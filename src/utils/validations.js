@@ -3,7 +3,7 @@ export const username = (_username = '') => {
 	let error = ''
 
 	if (!/^\w+$/.test(_username)) {
-		error += 'username cannot contain space or special characters'
+		error += 'name cannot contain space or special characters'
 	}
 
 	return error

@@ -6,7 +6,7 @@ const { root } = require('../')
 
 const PATHS = {
 	entry: join(root, 'src/server'),
-	output: join(root, 'dist/server'),
+	output: join(root, 'server'),
 	root
 }
 

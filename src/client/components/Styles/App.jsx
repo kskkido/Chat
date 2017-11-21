@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 
 export const Global = css`
   body {
+    margin: 0;
     background-color: white;
     color: black;
     font-family: 'Roboto', sans-serif;
@@ -10,26 +11,8 @@ export const Global = css`
     font-size: 1.2em;
     letter-spacing: 1px;
 
-    section {
-      margin: 0;
-      padding: 0;
-
-    }
-
     div {
-      margin: 0;
-      padding: 0;
       word-wrap: break-word;
-    }
-
-    a {
-      text-decoration: none;
-      font-size: 20px;
-      color: black;
-    }
-
-    h1 {
-      font-size: 3em;
     }
 
     input {
@@ -70,16 +53,16 @@ export const AppButton = styled.button`
 `
 
 export const AppError = styled.span`
-  color: red;
+  color: #f44336;
 `
 
 export const AppOverlay = styled.div`
   position: fixed;
-  height: 110vh;
-  width: 110vw;
+  height: 100vh;
+  width: 100vw;
   opacity: 0.7;
   background-color: black;
-  z-index: -1;
+  z-index: 1;
 `
 
 export const AppSubText = styled.span`

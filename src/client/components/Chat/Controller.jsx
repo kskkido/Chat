@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { identity } from 'ramda'
 import ChatDisplay from './Display'
 
 /* publish to faye on mount, and provide child with a method to publish message */
@@ -9,10 +10,11 @@ class ChatController extends Component {
 		self: PropTypes.string.isRequired,
 	}
 
-	componentWillReceiveProps({ publish, self }) {
-		console.log(self, 'how')
-		if (self !== null) {
-			publish('/user/connect', { username: self })
+	componentWillReceiveProps(nextProps) {
+		const { publish, self } = this.props
+
+		if (nextProps.self && nextProps.self !== self) {
+			publish('/user/connect', { username: nextProps.self })
 		}
 	}
 
@@ -27,7 +29,9 @@ class ChatController extends Component {
 	}
 
 	render() {
-		return <ChatDisplay onMessage={this.onMessage} />
+		const { self } = this.props
+
+		return <ChatDisplay onMessage={self ? this.onMessage : identity} />
 	}
 }
 

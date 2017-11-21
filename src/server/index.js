@@ -7,7 +7,7 @@ import tcp from './tcp'
 import send from './send'
 import hmr from './hmr'
 
-const PUBLIC_PATH = path.join(root, 'dist/public')
+const PUBLIC_PATH = path.join(root, 'dist')
 
 const app = express()
 
@@ -19,7 +19,7 @@ export default app
 	.use(bodyParser.urlencoded({ extended: false }))
 	.use(bodyParser.json())
 
-	.use('/public', express.static(PUBLIC_PATH))
+	.use('/dist', express.static(PUBLIC_PATH))
 
 	.get('*', send)
 

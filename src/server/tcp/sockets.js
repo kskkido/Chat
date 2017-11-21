@@ -40,11 +40,11 @@ const createHandlers = client => ({
 	}
 })
 
-export default handleHandshake((socket, baeClient, username) => {
+export default (socket, baeClient, username) => {
 	const client = createClientHandlers(baeClient, username)
 	const { onConnect, onDisconnect, onData } = createHandlers(client)
 
 	socket.write(`Hi, ${username}! Get yappin\n`, () => onConnect(socket))
 	socket.on('data', data => onData(socket, data))
 	socket.on('end', () => onDisconnect(socket))
-})
+}
