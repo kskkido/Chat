@@ -37,7 +37,7 @@ class FayeProvider {
 		const subscription = eventManager.subscribe(null, callback)
 		const cacheMessages = this.cache[channel]
 
-		logChannelCount(eventManager, channel)
+		logChannelCount(eventManager, channel, false)
 
 		if (fetchHistory && cacheMessages.length > 0) {
 			cacheMessages.map(callback)
@@ -52,7 +52,7 @@ class FayeProvider {
 			unsubscribe: (disconnect) => {
 				subscription.unsubscribe()
 
-				logChannelCount(eventManager, channel)
+				logChannelCount(eventManager, channel, false)
 
 				if (disconnect && eventManager.subscriberCount() === 0) {
 					this.fayeManager[channel].cancel()
