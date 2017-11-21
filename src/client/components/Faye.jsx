@@ -1,46 +1,74 @@
 /* global Faye, window */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { createChannel, unsubscribeChannels } from 'Utils/faye'
+import EventManager from 'Utils/eventManager'
+import { logChannelCount } from 'Utils/dev'
 
 class FayeProvider extends Component {
 	static propTypes = {
 		children: PropTypes.func.isRequired
 	}
 
+	static onChannelMessage = (eventManager, message, cache) => {
+		eventManager.raise(null, message)
+
+		cache.push(message)
+		while (cache.length > 2000) {
+			cache.shift()
+		}
+	}
+
 	constructor(props) {
 		super(props)
 
 		this.client = new Faye.Client(`${window.location.href}faye`)
+		this.cache = {}
 		this.channelManager = {}
+		this.fayeManager = {}
 	}
 
-	componentWillUnmount() {
-		unsubscribeChannels(this.deleteChannel, this.channelManager)
+	subscribe = (channel, callback, fetchHistory) => { // third parameter to
+		let eventManager = this.channelManager[channel]
+		let needToSubscribe = false
 
-		this.client.publish('/meta/disconnect')
-	}
-
-	getChannel = (channel) => {
-		let channel$ = this.channelManager[channel]
-
-		if (!channel$) {
-			this.channelManager[channel] = createChannel(this.client, channel)
-			channel$ = this.channelManager[channel]
+		if (eventManager === undefined) {
+			this.channelManager[channel] = EventManager.create()
+			eventManager = this.channelManager[channel]
+			needToSubscribe = true
 		}
 
-		return channel$
-	}
+		if (this.cache[channel] === undefined) {
+			this.cache[channel] = []
+		}
 
-	deleteChannel = (channel) => {
-		delete this.channelManager[channel]
-	}
+		const subscription = eventManager.subscribe(null, callback)
+		const cacheMessages = this.cache[channel]
 
-	subscribe = (channel, streamHandlerFn) => {
-		const channel$ = this.getChannel(channel)
-		const subscription = streamHandlerFn(channel$)
+		logChannelCount(eventManager, channel)
 
-		return subscription
+		if (fetchHistory && cacheMessages.length > 0) {
+			cacheMessages.map(callback)
+		}
+
+		if (needToSubscribe) {
+			this.fayeManager[channel] = this.client.subscribe(channel, message =>
+				FayeProvider.onChannelMessage(eventManager, message, cacheMessages))
+		}
+
+		return 	{
+			unsubscribe: (disconnect) => {
+				subscription.unsubscribe()
+
+				logChannelCount(eventManager, channel)
+
+				if (disconnect && eventManager.subscriberCount() === 0) {
+					this.fayeManager[channel].cancel()
+
+					delete this.fayeManager[channel]
+					delete this.channelManager[channel]
+				}
+			}
+		}
 	}
 
 	publish = (channel, message) => this.client.publish(channel, message)

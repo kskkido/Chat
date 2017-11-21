@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { mapObjIndexed } from 'ramda'
-import { unsubscribeChannels } from 'Utils/faye'
 
 /* subscribes to provided channel callback pairs on mount */
 class Subscribe extends Component {
@@ -24,17 +23,20 @@ class Subscribe extends Component {
 	}
 
 	componentWillUnmount() {
-		unsubscribeChannels(this.unsubscribe, this.subscriptionManagers)
+		mapObjIndexed(
+			(_, channel) => this.unsubscribe(channel),
+			this.subscriptionManager
+		)
 	}
 
-	subscribe = (callback, channel) => {
+	subscribe = (callback, channel, fetchHistory) => {
 		const { subscribe } = this.props
 
-		this.subscriptionManager[channel] = subscribe(channel, callback)
+		this.subscriptionManager[channel] = subscribe(channel, callback, fetchHistory)
 	}
 
 	unsubscribe = (channel) => {
-		this.subscriptionManager[channel].unsubscribe()
+		this.subscriptionManager[channel].unsubscribe(true)
 		delete this.subscriptionManager[channel]
 	}
 

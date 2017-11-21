@@ -21,8 +21,6 @@ class ScrollBottom extends Component {
 		}
 	}
 
-	receiveRef = (el) => { this.target = el }
-
 	renderChildren = () => {
 		const { children } = this.props
 		const child = React.Children.only(children)
@@ -32,7 +30,7 @@ class ScrollBottom extends Component {
 			find better way to get child ref
 		*/
 		return React.cloneElement(child, {
-			innerRef: this.receiveRef
+			innerRef: (el) => { this.target = el }
 		})
 	}
 

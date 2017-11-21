@@ -1,48 +1,55 @@
 import { cleanInput, messageToTerminal, messageFromSelf } from 'Utils/tcp'
 import handleHandshake from './handshake'
-import createClientHandlers from './faye'
+import createClient from './faye'
 
 const sockets = new Set()
 
-const createHandlers = client => ({
-	onData: (socket, data) => {
-		const cleanData = cleanInput(data)
+const createHandlers = (client, username) => {
+	let subscription
 
-		if (cleanData === '@quit') {
-			socket.end('bye\n')
-		} else {
-			client.publish('/message', {
-				content: cleanData,
-				timestamp: (new Date()).valueOf()
-			})
-		}
-	},
+	return {
+		onData: (socket, data) => {
+			const cleanData = cleanInput(data)
 
-	onConnect: (socket) => {
-		sockets.add(socket)
-
-		client.publish('/user/connect')
-
-		client.subscribe(
-			'/message',
-			(_message) => {
-				const isSelf = _message.username === client.username
-				const message = isSelf ? messageFromSelf(_message) : _message
-
-				socket.write(messageToTerminal(message))
+			if (cleanData === '@quit') {
+				socket.end('bye\n')
+			} else {
+				client.publish('/message', {
+					username,
+					content: cleanData,
+					timestamp: (new Date()).valueOf()
+				})
 			}
-		)
-	},
+		},
 
-	onDisconnect: (socket) => {
-		client.unsubscribeAll()
-		sockets.delete(socket)
+		onConnect: (socket) => {
+			sockets.add(socket)
+
+			client.publish('/user/connect', { username })
+
+			subscription = client.subscribe(
+				'/message',
+				(_, _message) => {
+					const isSelf = _message.username === username
+					const message = isSelf ? messageFromSelf(_message) : _message
+
+					socket.write(messageToTerminal(message))
+				}
+			)
+		},
+
+		onDisconnect: (socket) => {
+			if (subscription) {
+				subscription.unsubscribe(true)
+			}
+			sockets.delete(socket)
+		}
 	}
-})
+}
 
 export default (socket, baeClient, username) => {
-	const client = createClientHandlers(baeClient, username)
-	const { onConnect, onDisconnect, onData } = createHandlers(client)
+	const client = createClient(baeClient)
+	const { onConnect, onDisconnect, onData } = createHandlers(client, username)
 
 	socket.write(`Hi, ${username}! Get yappin\n`, () => onConnect(socket))
 	socket.on('data', data => onData(socket, data))

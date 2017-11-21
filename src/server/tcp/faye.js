@@ -1,48 +1,68 @@
-import { curry, mapObjIndexed } from 'ramda'
-import { createChannel, unsubscribeChannels } from 'Utils/faye'
-import { messageToBrowser } from 'Utils/tcp'
+import EventManager from 'Utils/eventManager'
+import { logChannelCount } from 'Utils/dev'
 
-/* store subscriptions */
-const channelManager = {}
-const clientManager = {}
-
-const subscribeChannel = curry((client, channel) => {
-	let channelSub = channelManager[channel]
-
-	if (!channelSub) {
-		channelSub = createChannel(client, channel)
+class FayeProvider {
+	constructor(client) {
+		this.client = client
+		this.cache = {}
+		this.channelManager = {}
+		this.fayeManager = {}
 	}
 
-	return channelSub
-})
+	static onChannelMessage = (eventManager, message, cache) => {
+		eventManager.raise(null, message)
 
-const createMessage = curry(messageToBrowser)
-
-/* create faye client actions to be used by tcp socket */
-export default (client, username) => {
-	const subsribeClientChannel = subscribeChannel(client)
-	const createClientMessage = createMessage(username)
-	const clientSubscriptions = {}
-
-	return {
-		username,
-
-		publish(channel, message = {}) { client.publish(channel, createClientMessage(message)) },
-
-		subscribe(channel, callback) {
-			const channel$ = subsribeClientChannel(channel)
-
-			clientSubscriptions[channel] = channel$.subscribe(callback)
-			clientManager[username] = clientSubscriptions
-		},
-
-		unsubscribe(channel) {
-			clientSubscriptions[channel].unsubscribe()
-			delete clientSubscriptions[channel]
-		},
-
-		unsubscribeAll() {
-			unsubscribeChannels(this.unsubscribe, clientSubscriptions)
+		cache.push(message)
+		while (cache.length > 2000) {
+			cache.shift()
 		}
 	}
+
+	subscribe = (channel, callback, fetchHistory) => { // third parameter to
+		let eventManager = this.channelManager[channel]
+		let needToSubscribe = false
+
+		if (eventManager === undefined) {
+			this.channelManager[channel] = EventManager.create()
+			eventManager = this.channelManager[channel]
+			needToSubscribe = true
+		}
+
+		if (this.cache[channel] === undefined) {
+			this.cache[channel] = []
+		}
+
+		const subscription = eventManager.subscribe(null, callback)
+		const cacheMessages = this.cache[channel]
+
+		logChannelCount(eventManager, channel)
+
+		if (fetchHistory && cacheMessages.length > 0) {
+			cacheMessages.map(callback)
+		}
+
+		if (needToSubscribe) {
+			this.fayeManager[channel] = this.client.subscribe(channel, message =>
+				FayeProvider.onChannelMessage(eventManager, message, cacheMessages))
+		}
+
+		return 	{
+			unsubscribe: (disconnect) => {
+				subscription.unsubscribe()
+
+				logChannelCount(eventManager, channel)
+
+				if (disconnect && eventManager.subscriberCount() === 0) {
+					this.fayeManager[channel].cancel()
+
+					delete this.fayeManager[channel]
+					delete this.channelManager[channel]
+				}
+			}
+		}
+	}
+
+	publish = (channel, message) => this.client.publish(channel, message)
 }
+
+export default client => new FayeProvider(client)

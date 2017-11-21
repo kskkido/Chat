@@ -17,8 +17,8 @@ const Chat = ({ publish, self, subscribe }) => (
 		{({ dispatchMessage, dispatchUserConnect }) => (
 			<Subscribe
 				tasks={{
-					'/message': channel => channel.subscribe(dispatchMessage),
-					'/user/connect': channel => channel.subscribe(dispatchUserConnect)
+					'/message': (_, message) => dispatchMessage(message),
+					'/user/connect': (_, message) => dispatchUserConnect(message)
 				}}
 				subscribe={subscribe}
 			>

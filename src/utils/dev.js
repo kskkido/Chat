@@ -1,14 +1,13 @@
-import { identity, tap } from 'ramda'
+/* eslint-disable prefer-template */
+import { identity } from 'ramda'
 
-const isProd = process.env.NODE_ENV === 'production'
+const isDev = process.env.NODE_ENV === 'development'
 
-export const log = isProd ? identity : tap(console.log)
+export const logChannelCount = isDev ? (eventManager, channel) => {
+	const string = 'FAYE CLIENT\n'
+								+ eventManager.subscriberCount()
+								+ ' SUBSCRIBERS ON CHANNEL:\n'
+								+ channel
 
-export const measure = isProd ? identity :
-	fn => function measureFn(...args) {
-		console.time('CALLING FUNCTION', fn)
-		const value = fn.apply(this, args)
-		console.timeEnd()
-
-		return value
-	}
+	console.log(string)
+} : identity

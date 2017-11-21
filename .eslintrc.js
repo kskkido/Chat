@@ -22,6 +22,7 @@ module.exports = {
 		'import/extensions': 0,
 		'import/no-unresolved': 1,
 		'import/no-extraneous-dependencies': 0,
+		'import/prefer-default-export': 0,
 		'no-use-before-define': ['error', { 'functions': false }]
 	}
 }
