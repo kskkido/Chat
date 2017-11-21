@@ -1,9 +1,11 @@
+import Faye from 'faye'
+import { fayeUrl } from 'Root'
 import EventManager from 'Utils/eventManager'
 import { logChannelCount } from 'Utils/dev'
 
 class FayeProvider {
-	constructor(client) {
-		this.client = client
+	constructor() {
+		this.client = new Faye.Client(fayeUrl)
 		this.cache = {}
 		this.channelManager = {}
 		this.fayeManager = {}
@@ -65,4 +67,4 @@ class FayeProvider {
 	publish = (channel, message) => this.client.publish(channel, message)
 }
 
-export default client => new FayeProvider(client)
+export default () => new FayeProvider()

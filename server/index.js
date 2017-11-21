@@ -84,6 +84,9 @@ module.exports = {
 	get baseUrl() {
 		return env.BASE_URL || 'http://localhost:' + module.exports.port;
 	},
+	get fayeUrl() {
+		return module.exports.baseUrl + '/faye';
+	},
 	get root() {
 		return process.cwd();
 	},
@@ -121,10 +124,95 @@ module.exports = require("path");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("ramda");
+module.exports = require("webpack");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("webpack-merge");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("faye");
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _ramda = __webpack_require__(7);
+
+var _tcp = __webpack_require__(8);
+
+var _validations = __webpack_require__(17);
+
+var onInput = function onInput(socket) {
+	return new Promise(function (res, rej) {
+		socket.on('data', function response(data) {
+			var username = (0, _tcp.cleanInput)(data);
+			var error = (0, _validations.username)(username);
+
+			socket.removeListener('data', response);
+
+			return error ? rej(error) : res(username);
+		});
+	});
+};
+
+/*  will be partially applied with .require('./sockets').default */
+var onHandshake = (0, _ramda.curry)(function (nextFn, socket) {
+	var _error = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+	socket.write(_error ? 'Failed: ' + _error + '\nTry again!\n' : 'Welcome to the chat! Give yourself a username!\n');
+
+	onInput(socket).then(function (username) {
+		return nextFn(socket, username);
+	}, function (error) {
+		return onHandshake(nextFn, socket, error);
+	});
+});
+
+var _default = onHandshake;
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(onInput, 'onInput', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
+
+	__REACT_HOT_LOADER__.register(onHandshake, 'onHandshake', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
+}();
+
+;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("ramda");
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -174,122 +262,6 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("webpack");
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = require("webpack-merge");
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("express");
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _ramda = __webpack_require__(2);
-
-var _Root = __webpack_require__(0);
-
-var _tcp = __webpack_require__(3);
-
-var _validations = __webpack_require__(18);
-
-var onInput = function onInput(socket) {
-	return new Promise(function (res, rej) {
-		socket.on('data', function response(data) {
-			var username = (0, _tcp.cleanInput)(data);
-			var error = (0, _validations.username)(username);
-
-			socket.removeListener('data', response);
-
-			return error ? rej(error) : res(username);
-		});
-	});
-};
-
-/* hacky... will be partially applied with .require('./sockets').default */
-var onHandshake = (0, _ramda.curry)(function (nextFn, bae, socket) {
-	var _error = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-
-	socket.write(_error ? 'Failed: ' + _error + '\nTry again!\n' : 'Welcome to the chat! Give yourself a username!\n');
-
-	onInput(socket).then(function (username) {
-		return nextFn(socket, bae.getClient(_Root.baseUrl + '/faye'), username);
-	}, function (error) {
-		return onHandshake(nextFn, bae, socket, error);
-	});
-});
-
-var _default = onHandshake;
-exports.default = _default;
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(onInput, 'onInput', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
-
-	__REACT_HOT_LOADER__.register(onHandshake, 'onHandshake', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
-
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
-}();
-
-;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _manager = __webpack_require__(37);
-
-var _manager2 = _interopRequireDefault(_manager);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_manager2.default.create = function () {
-  return new _manager2.default();
-};
-
-var _default = _manager2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/utils/eventManager/index.js');
-}();
-
-;
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -308,7 +280,7 @@ var _morgan = __webpack_require__(11);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _express = __webpack_require__(6);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -322,13 +294,13 @@ var _tcp = __webpack_require__(15);
 
 var _tcp2 = _interopRequireDefault(_tcp);
 
-var _send = __webpack_require__(25);
+var _page = __webpack_require__(23);
 
-var _send2 = _interopRequireDefault(_send);
+var _page2 = _interopRequireDefault(_page);
 
-var _hmr = __webpack_require__(26);
+var _hotmod = __webpack_require__(24);
 
-var _hmr2 = _interopRequireDefault(_hmr);
+var _hotmod2 = _interopRequireDefault(_hotmod);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -336,9 +308,9 @@ var PUBLIC_PATH = _path2.default.join(_Root.root, 'dist');
 
 var app = (0, _express2.default)();
 
-var _default = app.use(_Root.env.NODE_ENV === 'development' ? _hmr2.default : function (req, res, next) {
+var _default = app.use(_Root.env.NODE_ENV === 'development' ? _hotmod2.default : function (req, res, next) {
 	return next();
-}).use((0, _morgan2.default)('dev')).use(_bodyParser2.default.urlencoded({ extended: false })).use(_bodyParser2.default.json()).use('/dist', _express2.default.static(PUBLIC_PATH)).get('*', _send2.default).use(function (err, req, res) {
+}).use((0, _morgan2.default)('dev')).use(_bodyParser2.default.urlencoded({ extended: false })).use(_bodyParser2.default.json()).use('/dist', _express2.default.static(PUBLIC_PATH)).get('*', _page2.default).use(function (err, req, res) {
 	console.error(err);
 	res.status(err.status || 500).send(err.message || 'Internal server error');
 });
@@ -358,6 +330,7 @@ if (module === __webpack_require__.c[__webpack_require__.s]) {
 		console.log('Listening HTML connection on http://' + urlSafeHost + ':' + _Root.port);
 	});
 
+	/* connect tcp server */
 	(0, _tcp2.default)(server);
 }
 ;
@@ -427,10 +400,10 @@ module.exports = {
 	"description": "Faye Chat",
 	"main": "index.js",
 	"scripts": {
-		"test": "mocha --compilers js:babel-register --watch-extensions js,jsx tests/**/*.test.js",
 		"build": "webpack",
-		"start": "node ./server",
-		"start-dev": "NODE_ENV=development webpack -w & NODE_ENV=development node ./server",
+		"logger": "node ./logger.js",
+		"start": "node ./server/index.js",
+		"start-dev": "NODE_ENV=development webpack -w & NODE_ENV=development npm run start",
 		"start-prod": "NODE_ENV=production webpack && npm run start"
 	},
 	"keywords": [],
@@ -461,12 +434,12 @@ module.exports = {
 		"babel-preset-env": "^1.6.1",
 		"babel-preset-react": "^6.24.1",
 		"babel-preset-stage-0": "^6.24.1",
-		"babel-register": "^6.24.1",
 		"chai": "^4.1.0",
 		"compression-webpack-plugin": "^1.0.0",
 		"enzyme": "^3.0.0",
 		"eslint": "^4.11.0",
 		"eslint-config-airbnb": "^16.1.0",
+		"eslint-import-resolver-webpack": "^0.8.3",
 		"eslint-plugin-import": "^2.8.0",
 		"eslint-plugin-jsx-a11y": "^6.0.2",
 		"eslint-plugin-react": "^7.4.0",
@@ -498,21 +471,21 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _faye = __webpack_require__(16);
+var _faye = __webpack_require__(5);
 
 var _faye2 = _interopRequireDefault(_faye);
 
-var _net = __webpack_require__(17);
+var _net = __webpack_require__(16);
 
 var _net2 = _interopRequireDefault(_net);
 
 var _Root = __webpack_require__(0);
 
-var _handshake = __webpack_require__(7);
+var _handshake = __webpack_require__(6);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _sockets = __webpack_require__(19);
+var _sockets = __webpack_require__(18);
 
 var _sockets2 = _interopRequireDefault(_sockets);
 
@@ -523,7 +496,7 @@ var _default = function _default(HTMLServer) {
 		mount: '/faye',
 		timeout: 45
 	});
-	var onNewsocket = (0, _handshake2.default)(_sockets2.default, bae);
+	var onNewsocket = (0, _handshake2.default)(_sockets2.default);
 	var server = _net2.default.createServer(onNewsocket);
 
 	bae.attach(HTMLServer);
@@ -554,16 +527,10 @@ var _temp = function () {
 /* 16 */
 /***/ (function(module, exports) {
 
-module.exports = require("faye");
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
 module.exports = require("net");
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -597,7 +564,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -607,13 +574,13 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _tcp = __webpack_require__(3);
+var _tcp = __webpack_require__(8);
 
-var _handshake = __webpack_require__(7);
+var _handshake = __webpack_require__(6);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _faye = __webpack_require__(20);
+var _faye = __webpack_require__(19);
 
 var _faye2 = _interopRequireDefault(_faye);
 
@@ -661,8 +628,8 @@ var createHandlers = function createHandlers(client, username) {
 	};
 };
 
-var _default = function _default(socket, baeClient, username) {
-	var client = (0, _faye2.default)(baeClient);
+var _default = function _default(socket, username) {
+	var client = (0, _faye2.default)();
 
 	var _createHandlers = createHandlers(client, username),
 	    onConnect = _createHandlers.onConnect,
@@ -698,7 +665,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -708,17 +675,23 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _eventManager = __webpack_require__(8);
+var _faye = __webpack_require__(5);
+
+var _faye2 = _interopRequireDefault(_faye);
+
+var _Root = __webpack_require__(0);
+
+var _eventManager = __webpack_require__(20);
 
 var _eventManager2 = _interopRequireDefault(_eventManager);
 
-var _dev = __webpack_require__(36);
+var _dev = __webpack_require__(22);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var FayeProvider = function FayeProvider(client) {
+var FayeProvider = function FayeProvider() {
 	var _this = this;
 
 	_classCallCheck(this, FayeProvider);
@@ -773,7 +746,7 @@ var FayeProvider = function FayeProvider(client) {
 		return _this.client.publish(channel, message);
 	};
 
-	this.client = client;
+	this.client = new _faye2.default.Client(_Root.fayeUrl);
 	this.cache = {};
 	this.channelManager = {};
 	this.fayeManager = {};
@@ -788,8 +761,8 @@ FayeProvider.onChannelMessage = function (eventManager, message, cache) {
 	}
 };
 
-var _default = function _default(client) {
-	return new FayeProvider(client);
+var _default = function _default() {
+	return new FayeProvider();
 };
 
 exports.default = _default;
@@ -808,455 +781,42 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
-var _Root = __webpack_require__(0);
+var _manager = __webpack_require__(21);
 
-var html = '\n\t<!doctype html>\n\t<html>\n\t\t<head>\n\t\t\t<title>faye chat</title>\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="app"></div>\n\t\t\t<div id="modal-overlay"></div>\n\t\t\t<script type="text/javascript" src=' + _Root.baseUrl + '/faye/client.js></script>\n\t\t\t<script src="dist/bundle.js"></script>\n\t\t</body>\n\t</html>\n';
-
-var _default = function _default(req, res) {
-	res.send(html);
-};
-
-exports.default = _default;
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(html, 'html', '/Users/Kidokeisuke/bitcraft/src/server/send.js');
-
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/send.js');
-}();
-
-;
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _express = __webpack_require__(6);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _webpack = __webpack_require__(4);
-
-var _webpack2 = _interopRequireDefault(_webpack);
-
-var _webpackDevMiddleware = __webpack_require__(27);
-
-var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
-
-var _webpackHotMiddleware = __webpack_require__(28);
-
-var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
-
-var _webpack3 = __webpack_require__(29);
-
-var _webpack4 = _interopRequireDefault(_webpack3);
+var _manager2 = _interopRequireDefault(_manager);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var router = _express2.default.Router();
-// webpack config is an array, [0: clientConfig, 1: serverConfig]
-/* eslint-disable import/no-extraneous-dependencies */
-var clientConfig = _webpack4.default[0];
-var compiler = (0, _webpack2.default)(clientConfig);
+_manager2.default.create = function () {
+  return new _manager2.default();
+};
 
-var _default = router.use((0, _webpackDevMiddleware2.default)(compiler, {
-	noInfo: true,
-	publicPath: clientConfig.output.publicPath
-})).use((0, _webpackHotMiddleware2.default)(compiler, {
-	quiet: true
-}));
-
+var _default = _manager2.default;
 exports.default = _default;
 ;
 
 var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/bitcraft/src/server/hmr.js');
-
-	__REACT_HOT_LOADER__.register(clientConfig, 'clientConfig', '/Users/Kidokeisuke/bitcraft/src/server/hmr.js');
-
-	__REACT_HOT_LOADER__.register(compiler, 'compiler', '/Users/Kidokeisuke/bitcraft/src/server/hmr.js');
-
-	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/hmr.js');
-}();
-
-;
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports) {
-
-module.exports = require("webpack-dev-middleware");
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-module.exports = require("webpack-hot-middleware");
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// const npmEvent = process.env.npm_lifecycle_event;
-module.exports = __webpack_require__(30);
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-}();
-
-;
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/* eslint-disable import/no-extraneous-dependencies */
-var _require = __webpack_require__(0),
-    env = _require.env;
-
-var clientConfig = __webpack_require__(31);
-var serverConfig = __webpack_require__(33);
-var applyBaseConfig = __webpack_require__(35)(env);
-
-module.exports = [clientConfig, serverConfig].map(applyBaseConfig);
-;
-
-var _temp = function () {
   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(applyBaseConfig, 'applyBaseConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/index.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/utils/eventManager/index.js');
 }();
 
 ;
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/* eslint-disable import/no-extraneous-dependencies */
-var webpack = __webpack_require__(4);
-var merge = __webpack_require__(5);
-var CompressionPlugin = __webpack_require__(32);
-
-var _require = __webpack_require__(1),
-    join = _require.join;
-
-var _require2 = __webpack_require__(0),
-    root = _require2.root;
-
-var PATHS = {
-	entry: join(root, 'src/client'),
-	output: join(root, 'dist'),
-	components: join(root, 'src/client/components'),
-	constants: join(root, 'src/client/constants.js'),
-	reducers: join(root, 'src/client/reducers')
-};
-
-var commonConfig = {
-	entry: ['react-hot-loader/patch', 'webpack-hot-middleware/client', PATHS.entry],
-	output: {
-		path: PATHS.output,
-		filename: 'bundle.js',
-		publicPath: '/dist'
-	},
-	resolve: {
-		alias: {
-			Components: PATHS.components,
-			Constants: PATHS.constants,
-			Reducers: PATHS.reducers,
-			Utils: PATHS.utils
-		},
-		extensions: ['.js', '.jsx', '.json', '*']
-	}
-};
-
-var prodConfig = {
-	plugins: [new webpack.optimize.UglifyJsPlugin({
-		compress: {
-			warnings: false, // Suppress uglification warnings
-			unsafe: true,
-			unsafe_comps: true,
-			screw_ie8: true
-		},
-		output: {
-			comments: false
-		},
-		exclude: [/\.min\.js$/gi]
-	}), new webpack.optimize.AggressiveMergingPlugin(), new CompressionPlugin({
-		asset: '[path].gz[query]',
-		algorithm: 'gzip',
-		test: /\.js$|\.css$|\.html$/,
-		threshold: 10240,
-		minRatio: 0.8
-	})]
-};
-
-var devConfig = {
-	output: {
-		hotUpdateChunkFilename: 'hot/hot-update.js',
-		hotUpdateMainFilename: 'hot/hot-update.json'
-	},
-	plugins: [new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin()]
-};
-
-module.exports = function (env) {
-	return env.NODE_ENV === 'production' ? merge(commonConfig, prodConfig) : merge(commonConfig, devConfig);
-};
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
-
-	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
-
-	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
-
-	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
-}();
-
-;
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-module.exports = require("compression-webpack-plugin");
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/* eslint-disable import/no-extraneous-dependencies */
-var nodeExternals = __webpack_require__(34);
-var merge = __webpack_require__(5);
-
-var _require = __webpack_require__(1),
-    join = _require.join;
-
-var _require2 = __webpack_require__(0),
-    root = _require2.root;
-
-var PATHS = {
-	entry: join(root, 'src/server'),
-	output: join(root, 'server'),
-	root: root
-};
-
-var commonConfig = {
-	entry: PATHS.entry,
-	target: 'node',
-	externals: [nodeExternals()],
-	output: {
-		path: PATHS.output,
-		filename: 'index.js',
-		libraryTarget: 'commonjs2'
-	},
-	resolve: {
-		alias: {
-			Root: PATHS.root
-		}
-	}
-};
-
-var prodConfig = {};
-
-var devConfig = {};
-
-module.exports = function (env) {
-	return env.NODE_ENV === 'production' ? merge(commonConfig, prodConfig) : merge(commonConfig, devConfig);
-};
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
-
-	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
-
-	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
-
-	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
-}();
-
-;
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
-module.exports = require("webpack-node-externals");
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/* eslint-disable import/no-extraneous-dependencies */
-var webpack = __webpack_require__(4);
-var merge = __webpack_require__(5);
-
-var _require = __webpack_require__(1),
-    join = _require.join;
-
-var _require2 = __webpack_require__(0),
-    root = _require2.root;
-
-var PATHS = {
-	utils: join(root, 'src/utils')
-};
-
-var commonConfig = {
-	resolve: {
-		alias: {
-			Utils: PATHS.utils
-		},
-		extensions: ['.js', '.jsx', '.json', '*']
-	},
-	module: {
-		rules: [{
-			test: /\.jsx?$/,
-			exclude: /(node_modules|bower_components)/,
-			loader: 'babel-loader',
-			options: {
-				presets: ['react', 'env', 'stage-0']
-			}
-		}]
-	}
-};
-
-var prodConfig = {
-	plugins: [new webpack.DefinePlugin({
-		'process.env': {
-			NODE_ENV: '"production"'
-		}
-	})]
-};
-
-var devConfig = {
-	devtool: 'cheap-source-map',
-	plugins: [new webpack.DefinePlugin({
-		'process.env': {
-			NODE_ENV: '"development"'
-		}
-	})]
-};
-
-module.exports = function (env) {
-	var envConfig = env.NODE_ENV === 'production' ? prodConfig : devConfig;
-
-	return function (factory) {
-		return merge(commonConfig, envConfig, factory(env));
-	};
-};
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
-
-	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
-
-	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
-
-	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
-}();
-
-;
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-							value: true
-});
-exports.logChannelCount = undefined;
-
-var _ramda = __webpack_require__(2);
-
-var isDev = "development" === 'development'; /* eslint-disable prefer-template */
-var logChannelCount = exports.logChannelCount = isDev ? function (eventManager, channel) {
-							var string = 'FAYE CLIENT\n' + eventManager.subscriberCount() + ' SUBSCRIBERS ON CHANNEL:\n' + channel;
-
-							console.log(string);
-} : _ramda.identity;
-;
-
-var _temp = function () {
-							if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-														return;
-							}
-
-							__REACT_HOT_LOADER__.register(logChannelCount, 'logChannelCount', '/Users/Kidokeisuke/bitcraft/src/utils/dev.js');
-
-							__REACT_HOT_LOADER__.register(isDev, 'isDev', '/Users/Kidokeisuke/bitcraft/src/utils/dev.js');
-}();
-
-;
-
-/***/ }),
-/* 37 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1423,6 +983,441 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(EventManager, 'EventManager', '/Users/Kidokeisuke/bitcraft/src/utils/eventManager/manager.js');
 
     __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/utils/eventManager/manager.js');
+}();
+
+;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+							value: true
+});
+exports.logChannelCount = undefined;
+
+var _ramda = __webpack_require__(7);
+
+var isDev = "development" === 'development'; /* eslint-disable prefer-template */
+var logChannelCount = exports.logChannelCount = isDev ? function (eventManager, channel) {
+							var string = 'FAYE CLIENT\n' + eventManager.subscriberCount() + ' SUBSCRIBERS ON CHANNEL:\n' + channel;
+
+							console.log(string);
+} : _ramda.identity;
+;
+
+var _temp = function () {
+							if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+														return;
+							}
+
+							__REACT_HOT_LOADER__.register(logChannelCount, 'logChannelCount', '/Users/Kidokeisuke/bitcraft/src/utils/dev.js');
+
+							__REACT_HOT_LOADER__.register(isDev, 'isDev', '/Users/Kidokeisuke/bitcraft/src/utils/dev.js');
+}();
+
+;
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _Root = __webpack_require__(0);
+
+var html = '\n\t<!doctype html>\n\t<html>\n\t\t<head>\n\t\t\t<title>faye chat</title>\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="app"></div>\n\t\t\t<div id="modal-overlay"></div>\n\t\t\t<script type="text/javascript" src=' + _Root.fayeUrl + '/client.js></script>\n\t\t\t<script src="dist/bundle.js"></script>\n\t\t</body>\n\t</html>\n';
+
+var _default = function _default(req, res) {
+	res.send(html);
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(html, 'html', '/Users/Kidokeisuke/bitcraft/src/server/page.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/page.js');
+}();
+
+;
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _express = __webpack_require__(4);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _webpack = __webpack_require__(2);
+
+var _webpack2 = _interopRequireDefault(_webpack);
+
+var _webpackDevMiddleware = __webpack_require__(25);
+
+var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
+
+var _webpackHotMiddleware = __webpack_require__(26);
+
+var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
+
+var _webpack3 = __webpack_require__(27);
+
+var _webpack4 = _interopRequireDefault(_webpack3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = _express2.default.Router();
+// webpack config is an array, [0: clientConfig, 1: serverConfig]
+/* eslint-disable import/no-extraneous-dependencies */
+var clientConfig = _webpack4.default[0];
+var compiler = (0, _webpack2.default)(clientConfig);
+
+var _default = router.use((0, _webpackDevMiddleware2.default)(compiler, {
+	noInfo: true,
+	publicPath: clientConfig.output.publicPath
+})).use((0, _webpackHotMiddleware2.default)(compiler, {
+	quiet: true
+}));
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/bitcraft/src/server/hotmod.js');
+
+	__REACT_HOT_LOADER__.register(clientConfig, 'clientConfig', '/Users/Kidokeisuke/bitcraft/src/server/hotmod.js');
+
+	__REACT_HOT_LOADER__.register(compiler, 'compiler', '/Users/Kidokeisuke/bitcraft/src/server/hotmod.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/hotmod.js');
+}();
+
+;
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("webpack-dev-middleware");
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("webpack-hot-middleware");
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(28);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _require = __webpack_require__(0),
+    env = _require.env;
+
+var clientConfig = __webpack_require__(29);
+var serverConfig = __webpack_require__(31);
+var applyBaseConfig = __webpack_require__(33)(env);
+
+module.exports = [clientConfig, serverConfig].map(applyBaseConfig);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(applyBaseConfig, 'applyBaseConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/index.js');
+}();
+
+;
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var webpack = __webpack_require__(2);
+var merge = __webpack_require__(3);
+var CompressionPlugin = __webpack_require__(30);
+
+var _require = __webpack_require__(1),
+    join = _require.join;
+
+var _require2 = __webpack_require__(0),
+    root = _require2.root;
+
+var PATHS = {
+	entry: join(root, 'src/client'),
+	output: join(root, 'dist'),
+	components: join(root, 'src/client/components'),
+	constants: join(root, 'src/client/constants.js'),
+	reducers: join(root, 'src/client/reducers')
+};
+
+var commonConfig = {
+	entry: ['react-hot-loader/patch', 'webpack-hot-middleware/client', PATHS.entry],
+	output: {
+		path: PATHS.output,
+		filename: 'bundle.js',
+		publicPath: '/dist'
+	},
+	resolve: {
+		alias: {
+			Components: PATHS.components,
+			Constants: PATHS.constants,
+			Reducers: PATHS.reducers,
+			Utils: PATHS.utils
+		},
+		extensions: ['.js', '.jsx', '.json', '*']
+	}
+};
+
+var prodConfig = {
+	plugins: [new webpack.optimize.UglifyJsPlugin({
+		compress: {
+			warnings: false, // Suppress uglification warnings
+			unsafe: true,
+			unsafe_comps: true,
+			screw_ie8: true
+		},
+		output: {
+			comments: false
+		},
+		exclude: [/\.min\.js$/gi]
+	}), new webpack.optimize.AggressiveMergingPlugin(), new CompressionPlugin({
+		asset: '[path].gz[query]',
+		algorithm: 'gzip',
+		test: /\.js$|\.css$|\.html$/,
+		threshold: 10240,
+		minRatio: 0.8
+	})]
+};
+
+var devConfig = {
+	output: {
+		hotUpdateChunkFilename: 'hot/hot-update.js',
+		hotUpdateMainFilename: 'hot/hot-update.json'
+	},
+	plugins: [new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin()]
+};
+
+module.exports = function (env) {
+	return env.NODE_ENV === 'production' ? merge(commonConfig, prodConfig) : merge(commonConfig, devConfig);
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+
+	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+
+	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+
+	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+}();
+
+;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+module.exports = require("compression-webpack-plugin");
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var nodeExternals = __webpack_require__(32);
+var merge = __webpack_require__(3);
+
+var _require = __webpack_require__(1),
+    join = _require.join;
+
+var _require2 = __webpack_require__(0),
+    root = _require2.root;
+
+var PATHS = {
+	entry: join(root, 'src/server'),
+	output: join(root, 'server')
+};
+
+var commonConfig = {
+	entry: PATHS.entry,
+	target: 'node',
+	externals: [nodeExternals()],
+	output: {
+		path: PATHS.output,
+		filename: 'index.js',
+		libraryTarget: 'commonjs2'
+	}
+};
+
+var prodConfig = {};
+
+var devConfig = {};
+
+module.exports = function (env) {
+	return env.NODE_ENV === 'production' ? merge(commonConfig, prodConfig) : merge(commonConfig, devConfig);
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+
+	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+
+	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+
+	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+}();
+
+;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+module.exports = require("webpack-node-externals");
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var webpack = __webpack_require__(2);
+var merge = __webpack_require__(3);
+
+var _require = __webpack_require__(1),
+    join = _require.join;
+
+var _require2 = __webpack_require__(0),
+    root = _require2.root;
+
+var PATHS = {
+	root: root,
+	utils: join(root, 'src/utils')
+};
+
+var commonConfig = {
+	resolve: {
+		alias: {
+			Root: PATHS.root,
+			Utils: PATHS.utils
+		},
+		extensions: ['.js', '.jsx', '.json', '*']
+	},
+	module: {
+		rules: [{
+			test: /\.jsx?$/,
+			exclude: /(node_modules|bower_components)/,
+			loader: 'babel-loader',
+			options: {
+				presets: ['react', 'env', 'stage-0']
+			}
+		}]
+	}
+};
+
+var prodConfig = {
+	plugins: [new webpack.DefinePlugin({
+		'process.env': {
+			NODE_ENV: '"production"'
+		}
+	})]
+};
+
+var devConfig = {
+	devtool: 'cheap-source-map',
+	plugins: [new webpack.DefinePlugin({
+		'process.env': {
+			NODE_ENV: '"development"'
+		}
+	})]
+};
+
+module.exports = function (env) {
+	var envConfig = env.NODE_ENV === 'production' ? prodConfig : devConfig;
+
+	return function (factory) {
+		return merge(commonConfig, envConfig, factory(env));
+	};
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+
+	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+
+	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+
+	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
 }();
 
 ;

@@ -10,6 +10,9 @@ module.exports = {
 	get baseUrl() {
 		return env.BASE_URL || `http://localhost:${module.exports.port}`
 	},
+	get fayeUrl() {
+		return `${module.exports.baseUrl}/faye`
+	},
 	get root() { return process.cwd() },
 	get name() { return pkg.name },
 	get port() { return env.PORT || 1337 },

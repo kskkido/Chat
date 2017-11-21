@@ -1,5 +1,4 @@
 import { curry } from 'ramda'
-import { baseUrl } from 'Root'
 import { cleanInput } from 'Utils/tcp'
 import { username as validation } from 'Utils/validations'
 
@@ -14,15 +13,15 @@ const onInput = socket => new Promise((res, rej) => {
 	})
 })
 
-/* hacky... will be partially applied with .require('./sockets').default */
-const onHandshake = curry((nextFn, bae, socket, _error = '') => {
+/*  will be partially applied with .require('./sockets').default */
+const onHandshake = curry((nextFn, socket, _error = '') => {
 	socket.write(_error ?
 		`Failed: ${_error}\nTry again!\n` :
 		'Welcome to the chat! Give yourself a username!\n')
 
 	onInput(socket).then(
-		username => nextFn(socket, bae.getClient(`${baseUrl}/faye`), username),
-		error => onHandshake(nextFn, bae, socket, error)
+		username => nextFn(socket, username),
+		error => onHandshake(nextFn, socket, error)
 	)
 })
 

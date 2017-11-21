@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { identity, map } from 'ramda'
 import { COLORS } from 'Constants'
 import {

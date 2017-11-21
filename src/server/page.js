@@ -1,4 +1,4 @@
-import { baseUrl } from 'Root'
+import { fayeUrl } from 'Root'
 
 const html = 	`
 	<!doctype html>
@@ -9,7 +9,7 @@ const html = 	`
 		<body>
 			<div id="app"></div>
 			<div id="modal-overlay"></div>
-			<script type="text/javascript" src=${baseUrl}/faye/client.js></script>
+			<script type="text/javascript" src=${fayeUrl}/client.js></script>
 			<script src="dist/bundle.js"></script>
 		</body>
 	</html>

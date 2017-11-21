@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const nodeExternals = require('webpack-node-externals')
 const merge = require('webpack-merge')
 const { join } = require('path')
@@ -7,7 +6,6 @@ const { root } = require('../')
 const PATHS = {
 	entry: join(root, 'src/server'),
 	output: join(root, 'server'),
-	root
 }
 
 const commonConfig = {
@@ -18,11 +16,6 @@ const commonConfig = {
 		path: PATHS.output,
 		filename: 'index.js',
 		libraryTarget: 'commonjs2'
-	},
-	resolve: {
-		alias: {
-			Root: PATHS.root,
-		}
 	}
 }
 

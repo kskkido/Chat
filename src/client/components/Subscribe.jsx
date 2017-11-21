@@ -29,10 +29,10 @@ class Subscribe extends Component {
 		)
 	}
 
-	subscribe = (callback, channel, fetchHistory) => {
+	subscribe = (callback, channel) => {
 		const { subscribe } = this.props
 
-		this.subscriptionManager[channel] = subscribe(channel, callback, fetchHistory)
+		this.subscriptionManager[channel] = subscribe(channel, callback, false)
 	}
 
 	unsubscribe = (channel) => {

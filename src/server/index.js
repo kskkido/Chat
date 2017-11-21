@@ -4,15 +4,15 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { env, port, root } from 'Root'
 import tcp from './tcp'
-import send from './send'
-import hmr from './hmr'
+import page from './page'
+import hotmod from './hotmod'
 
 const PUBLIC_PATH = path.join(root, 'dist')
 
 const app = express()
 
 export default app
-	.use(env.NODE_ENV === 'development' ? hmr : (req, res, next) => next())
+	.use(env.NODE_ENV === 'development' ? hotmod : (req, res, next) => next())
 
 	.use(morgan('dev'))
 
@@ -21,7 +21,7 @@ export default app
 
 	.use('/dist', express.static(PUBLIC_PATH))
 
-	.get('*', send)
+	.get('*', page)
 
 	.use((err, req, res) => {
 		console.error(err)
@@ -37,5 +37,6 @@ if (module === require.main) {
 		console.log(`Listening HTML connection on http://${urlSafeHost}:${port}`)
 	})
 
+	/* connect tcp server */
 	tcp(server)
 }

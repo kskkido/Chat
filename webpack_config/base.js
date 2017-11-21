@@ -1,16 +1,17 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const { join } = require('path')
 const { root } = require('../')
 
 const PATHS = {
+	root,
 	utils: join(root, 'src/utils')
 }
 
 const commonConfig = {
 	resolve: {
 		alias: {
+			Root: PATHS.root,
 			Utils: PATHS.utils
 		},
 		extensions: ['.js', '.jsx', '.json', '*'],

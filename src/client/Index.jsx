@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, global-require */
+/* eslint-disable global-require */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'

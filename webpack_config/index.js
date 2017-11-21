@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const { env } = require('../')
 const clientConfig = require('./client')
 const serverConfig = require('./server')

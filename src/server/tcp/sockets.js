@@ -47,8 +47,8 @@ const createHandlers = (client, username) => {
 	}
 }
 
-export default (socket, baeClient, username) => {
-	const client = createClient(baeClient)
+export default (socket, username) => {
+	const client = createClient()
 	const { onConnect, onDisconnect, onData } = createHandlers(client, username)
 
 	socket.write(`Hi, ${username}! Get yappin\n`, () => onConnect(socket))
