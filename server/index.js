@@ -159,7 +159,7 @@ var _ramda = __webpack_require__(7);
 
 var _tcp = __webpack_require__(8);
 
-var _validations = __webpack_require__(19);
+var _validations = __webpack_require__(17);
 
 var onInput = function onInput(socket) {
 	return new Promise(function (res, rej) {
@@ -290,15 +290,15 @@ var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
 var _Root = __webpack_require__(0);
 
-var _tcp = __webpack_require__(17);
+var _tcp = __webpack_require__(15);
 
 var _tcp2 = _interopRequireDefault(_tcp);
 
-var _page = __webpack_require__(25);
+var _page = __webpack_require__(23);
 
 var _page2 = _interopRequireDefault(_page);
 
-var _hotmod = __webpack_require__(26);
+var _hotmod = __webpack_require__(24);
 
 var _hotmod2 = _interopRequireDefault(_hotmod);
 
@@ -460,9 +460,7 @@ module.exports = {
 module.exports = require("process");
 
 /***/ }),
-/* 15 */,
-/* 16 */,
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -476,7 +474,7 @@ var _faye = __webpack_require__(5);
 
 var _faye2 = _interopRequireDefault(_faye);
 
-var _net = __webpack_require__(18);
+var _net = __webpack_require__(16);
 
 var _net2 = _interopRequireDefault(_net);
 
@@ -486,7 +484,7 @@ var _handshake = __webpack_require__(6);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _sockets = __webpack_require__(20);
+var _sockets = __webpack_require__(18);
 
 var _sockets2 = _interopRequireDefault(_sockets);
 
@@ -525,13 +523,13 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -565,7 +563,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -581,7 +579,7 @@ var _handshake = __webpack_require__(6);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _faye = __webpack_require__(21);
+var _faye = __webpack_require__(19);
 
 var _faye2 = _interopRequireDefault(_faye);
 
@@ -666,7 +664,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -682,11 +680,11 @@ var _faye2 = _interopRequireDefault(_faye);
 
 var _Root = __webpack_require__(0);
 
-var _eventManager = __webpack_require__(22);
+var _eventManager = __webpack_require__(20);
 
 var _eventManager2 = _interopRequireDefault(_eventManager);
 
-var _dev = __webpack_require__(24);
+var _dev = __webpack_require__(22);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -782,7 +780,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -792,7 +790,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _manager = __webpack_require__(23);
+var _manager = __webpack_require__(21);
 
 var _manager2 = _interopRequireDefault(_manager);
 
@@ -817,7 +815,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 23 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -989,7 +987,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1025,7 +1023,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 25 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1059,7 +1057,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1077,15 +1075,15 @@ var _webpack = __webpack_require__(2);
 
 var _webpack2 = _interopRequireDefault(_webpack);
 
-var _webpackDevMiddleware = __webpack_require__(27);
+var _webpackDevMiddleware = __webpack_require__(25);
 
 var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-var _webpackHotMiddleware = __webpack_require__(28);
+var _webpackHotMiddleware = __webpack_require__(26);
 
 var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-var _webpack3 = __webpack_require__(29);
+var _webpack3 = __webpack_require__(27);
 
 var _webpack4 = _interopRequireDefault(_webpack3);
 
@@ -1124,25 +1122,25 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-dev-middleware");
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-hot-middleware");
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(30);
+module.exports = __webpack_require__(28);
 ;
 
 var _temp = function () {
@@ -1154,7 +1152,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1163,9 +1161,9 @@ var _temp = function () {
 var _require = __webpack_require__(0),
     env = _require.env;
 
-var clientConfig = __webpack_require__(31);
-var serverConfig = __webpack_require__(33);
-var applyBaseConfig = __webpack_require__(35)(env);
+var clientConfig = __webpack_require__(29);
+var serverConfig = __webpack_require__(31);
+var applyBaseConfig = __webpack_require__(33)(env);
 
 module.exports = [clientConfig, serverConfig].map(applyBaseConfig);
 ;
@@ -1181,7 +1179,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1189,7 +1187,7 @@ var _temp = function () {
 
 var webpack = __webpack_require__(2);
 var merge = __webpack_require__(3);
-var CompressionPlugin = __webpack_require__(32);
+var CompressionPlugin = __webpack_require__(30);
 
 var _require = __webpack_require__(1),
     join = _require.join;
@@ -1274,19 +1272,19 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("compression-webpack-plugin");
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var nodeExternals = __webpack_require__(34);
+var nodeExternals = __webpack_require__(32);
 var merge = __webpack_require__(3);
 
 var _require = __webpack_require__(1),
@@ -1337,13 +1335,13 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 34 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-node-externals");
 
 /***/ }),
-/* 35 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
