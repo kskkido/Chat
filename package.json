@@ -12,9 +12,7 @@
     "start-prod": "npm run start-dev && NODE_ENV=production npm run start"
   },
   "keywords": [],
-  "author": "bitcraft",
-  "license": "Proprietary",
-  "private": true,
+  "author": "",
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
