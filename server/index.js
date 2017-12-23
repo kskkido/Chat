@@ -74,7 +74,7 @@ module.exports =
 // define constants such as env
 // module.exports getters that check for environment variables
 // some how make symlink work like bones
-var pkg = __webpack_require__(13);
+var pkg = __webpack_require__(12);
 
 var _process = process,
     env = _process.env;
@@ -100,6 +100,17 @@ module.exports = {
 	package: pkg,
 	env: env
 };
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(env, 'env', '/Users/Kidokeisuke/bitcraft/index.js');
+}();
+
+;
 
 /***/ }),
 /* 1 */
@@ -111,19 +122,19 @@ module.exports = require("path");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("webpack");
+module.exports = require("express");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("webpack-merge");
+module.exports = require("webpack");
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("webpack-merge");
 
 /***/ }),
 /* 5 */
@@ -146,7 +157,7 @@ var _ramda = __webpack_require__(7);
 
 var _tcp = __webpack_require__(8);
 
-var _validations = __webpack_require__(16);
+var _validations = __webpack_require__(15);
 
 var _validations2 = _interopRequireDefault(_validations);
 
@@ -178,7 +189,23 @@ var onHandshake = (0, _ramda.curry)(function (nextFn, socket) {
 	});
 });
 
-exports.default = onHandshake;
+var _default = onHandshake;
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(onInput, 'onInput', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
+
+	__REACT_HOT_LOADER__.register(onHandshake, 'onHandshake', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/tcp/handshake.js');
+}();
+
+;
 
 /***/ }),
 /* 7 */
@@ -218,6 +245,23 @@ var messageFromSelf = exports.messageFromSelf = function messageFromSelf(message
 
 	return Object.assign({}, message, { username: '[ ' + username + ' ]' });
 };
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(cleanInput, 'cleanInput', '/Users/Kidokeisuke/bitcraft/src/utils/tcp.js');
+
+	__REACT_HOT_LOADER__.register(messageToBrowser, 'messageToBrowser', '/Users/Kidokeisuke/bitcraft/src/utils/tcp.js');
+
+	__REACT_HOT_LOADER__.register(messageToTerminal, 'messageToTerminal', '/Users/Kidokeisuke/bitcraft/src/utils/tcp.js');
+
+	__REACT_HOT_LOADER__.register(messageFromSelf, 'messageFromSelf', '/Users/Kidokeisuke/bitcraft/src/utils/tcp.js');
+}();
+
+;
 
 /***/ }),
 /* 9 */
@@ -234,31 +278,27 @@ var _path = __webpack_require__(1);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _morgan = __webpack_require__(11);
-
-var _morgan2 = _interopRequireDefault(_morgan);
-
-var _express = __webpack_require__(4);
+var _express = __webpack_require__(2);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _bodyParser = __webpack_require__(12);
+var _bodyParser = __webpack_require__(11);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
 var _Root = __webpack_require__(0);
 
-var _tcp = __webpack_require__(14);
+var _tcp = __webpack_require__(13);
 
 var _tcp2 = _interopRequireDefault(_tcp);
 
-var _page = __webpack_require__(22);
+var _dev = __webpack_require__(21);
+
+var _dev2 = _interopRequireDefault(_dev);
+
+var _page = __webpack_require__(33);
 
 var _page2 = _interopRequireDefault(_page);
-
-var _hotmod = __webpack_require__(23);
-
-var _hotmod2 = _interopRequireDefault(_hotmod);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -266,12 +306,12 @@ var PUBLIC_PATH = _path2.default.join(_Root.root, 'dist');
 
 var app = (0, _express2.default)();
 
-exports.default = app.use(_Root.env.NODE_ENV === 'development' ? _hotmod2.default : function (req, res, next) {
-	return next();
-}).use((0, _morgan2.default)('dev')).use(_bodyParser2.default.urlencoded({ extended: false })).use(_bodyParser2.default.json()).use('/dist', _express2.default.static(PUBLIC_PATH)).get('*', _page2.default).use(function (err, req, res) {
+var _default = app.use(_dev2.default).use(_bodyParser2.default.urlencoded({ extended: false })).use(_bodyParser2.default.json()).use('/dist', _express2.default.static(PUBLIC_PATH)).get('*', _page2.default).use(function (err, req, res) {
 	console.error(err);
 	res.status(err.status || 500).send(err.message || 'Internal server error');
 });
+
+exports.default = _default;
 
 
 if (module === __webpack_require__.c[__webpack_require__.s]) {
@@ -289,6 +329,21 @@ if (module === __webpack_require__.c[__webpack_require__.s]) {
 	/* connect tcp server */
 	(0, _tcp2.default)(server);
 }
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(PUBLIC_PATH, 'PUBLIC_PATH', '/Users/Kidokeisuke/bitcraft/src/server/index.js');
+
+	__REACT_HOT_LOADER__.register(app, 'app', '/Users/Kidokeisuke/bitcraft/src/server/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/index.js');
+}();
+
+;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
 
 /***/ }),
@@ -323,16 +378,10 @@ module.exports = function(module) {
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("morgan");
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
 module.exports = require("body-parser");
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -395,7 +444,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -409,7 +458,7 @@ var _faye = __webpack_require__(5);
 
 var _faye2 = _interopRequireDefault(_faye);
 
-var _net = __webpack_require__(15);
+var _net = __webpack_require__(14);
 
 var _net2 = _interopRequireDefault(_net);
 
@@ -419,13 +468,13 @@ var _handshake = __webpack_require__(6);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _sockets = __webpack_require__(17);
+var _sockets = __webpack_require__(16);
 
 var _sockets2 = _interopRequireDefault(_sockets);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (HTMLServer) {
+var _default = function _default(HTMLServer) {
 	var bae = new _faye2.default.NodeAdapter({
 		mount: '/faye',
 		timeout: 45
@@ -444,14 +493,27 @@ exports.default = function (HTMLServer) {
 	});
 };
 
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/tcp/index.js');
+}();
+
+;
+
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -472,10 +534,24 @@ var username = function username() {
 	return error;
 };
 
-exports.default = username;
+var _default = username;
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(username, 'username', '/Users/Kidokeisuke/bitcraft/src/utils/validations.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/utils/validations.js');
+}();
+
+;
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -491,7 +567,7 @@ var _handshake = __webpack_require__(6);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _faye = __webpack_require__(18);
+var _faye = __webpack_require__(17);
 
 var _faye2 = _interopRequireDefault(_faye);
 
@@ -539,7 +615,7 @@ var createHandlers = function createHandlers(client, username) {
 	};
 };
 
-exports.default = function (socket, username) {
+var _default = function _default(socket, username) {
 	var client = (0, _faye2.default)();
 
 	var _createHandlers = createHandlers(client, username),
@@ -558,8 +634,25 @@ exports.default = function (socket, username) {
 	});
 };
 
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(sockets, 'sockets', '/Users/Kidokeisuke/bitcraft/src/server/tcp/sockets.js');
+
+	__REACT_HOT_LOADER__.register(createHandlers, 'createHandlers', '/Users/Kidokeisuke/bitcraft/src/server/tcp/sockets.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/tcp/sockets.js');
+}();
+
+;
+
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -575,11 +668,11 @@ var _faye2 = _interopRequireDefault(_faye);
 
 var _Root = __webpack_require__(0);
 
-var _eventManager = __webpack_require__(19);
+var _eventManager = __webpack_require__(18);
 
 var _eventManager2 = _interopRequireDefault(_eventManager);
 
-var _dev = __webpack_require__(21);
+var _dev = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -655,12 +748,27 @@ FayeProvider.onChannelMessage = function (eventManager, message, cache) {
 	}
 };
 
-exports.default = function () {
+var _default = function _default() {
 	return new FayeProvider();
 };
 
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(FayeProvider, 'FayeProvider', '/Users/Kidokeisuke/bitcraft/src/server/tcp/faye.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/tcp/faye.js');
+}();
+
+;
+
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -670,7 +778,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _manager = __webpack_require__(20);
+var _manager = __webpack_require__(19);
 
 var _manager2 = _interopRequireDefault(_manager);
 
@@ -680,10 +788,22 @@ _manager2.default.create = function () {
   return new _manager2.default();
 };
 
-exports.default = _manager2.default;
+var _default = _manager2.default;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/utils/eventManager/index.js');
+}();
+
+;
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -838,10 +958,24 @@ EventManager.prototype.subscriberCount = function () {
  * @property {function} unsubscribe
  */
 
-exports.default = EventManager;
+var _default = EventManager;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(EventManager, 'EventManager', '/Users/Kidokeisuke/bitcraft/src/utils/eventManager/manager.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/utils/eventManager/manager.js');
+}();
+
+;
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -854,7 +988,7 @@ exports.logChannelCount = undefined;
 
 var _ramda = __webpack_require__(7);
 
-var isDev = "production" === 'development'; /* eslint-disable prefer-template */
+var isDev = "development" === 'development'; /* eslint-disable prefer-template */
 var logChannelCount = exports.logChannelCount = isDev ? function (eventManager, channel) {
 							var browser = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
@@ -862,6 +996,60 @@ var logChannelCount = exports.logChannelCount = isDev ? function (eventManager, 
 
 							console.log(string);
 } : _ramda.identity;
+;
+
+var _temp = function () {
+							if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+														return;
+							}
+
+							__REACT_HOT_LOADER__.register(logChannelCount, 'logChannelCount', '/Users/Kidokeisuke/bitcraft/src/utils/dev.js');
+
+							__REACT_HOT_LOADER__.register(isDev, 'isDev', '/Users/Kidokeisuke/bitcraft/src/utils/dev.js');
+}();
+
+;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _express = __webpack_require__(2);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _Root = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* eslint-disable global-require */
+var router = _express2.default.Router();
+
+var _default = _Root.env.NODE_ENV === 'development' ? router.use(__webpack_require__(22).default).use(__webpack_require__(32)('dev')) : function (req, res, next) {
+	return next();
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/bitcraft/src/server/dev/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/dev/index.js');
+}();
+
+;
 
 /***/ }),
 /* 22 */
@@ -874,42 +1062,23 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _Root = __webpack_require__(0);
-
-var html = '\n\t<!doctype html>\n\t<html>\n\t\t<head>\n\t\t\t<title>faye chat</title>\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="app"></div>\n\t\t\t<div id="modal-overlay"></div>\n\t\t\t<script type="text/javascript" src=' + _Root.fayeUrl + '/client.js></script>\n\t\t\t<script src="dist/bundle.js"></script>\n\t\t</body>\n\t</html>\n';
-
-exports.default = function (req, res) {
-	res.send(html);
-};
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _express = __webpack_require__(4);
+var _express = __webpack_require__(2);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _webpack = __webpack_require__(2);
+var _webpack = __webpack_require__(3);
 
 var _webpack2 = _interopRequireDefault(_webpack);
 
-var _webpackDevMiddleware = __webpack_require__(24);
+var _webpackDevMiddleware = __webpack_require__(23);
 
 var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-var _webpackHotMiddleware = __webpack_require__(25);
+var _webpackHotMiddleware = __webpack_require__(24);
 
 var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-var _webpack3 = __webpack_require__(26);
+var _webpack3 = __webpack_require__(25);
 
 var _webpack4 = _interopRequireDefault(_webpack3);
 
@@ -921,24 +1090,61 @@ var router = _express2.default.Router();
 var clientConfig = _webpack4.default[0];
 var compiler = (0, _webpack2.default)(clientConfig);
 
-exports.default = router.use((0, _webpackDevMiddleware2.default)(compiler, {
+var _default = router.use((0, _webpackDevMiddleware2.default)(compiler, {
 	noInfo: true,
 	publicPath: clientConfig.output.publicPath
 })).use((0, _webpackHotMiddleware2.default)(compiler, {
 	quiet: true
 }));
 
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(router, 'router', '/Users/Kidokeisuke/bitcraft/src/server/dev/hmr.js');
+
+	__REACT_HOT_LOADER__.register(clientConfig, 'clientConfig', '/Users/Kidokeisuke/bitcraft/src/server/dev/hmr.js');
+
+	__REACT_HOT_LOADER__.register(compiler, 'compiler', '/Users/Kidokeisuke/bitcraft/src/server/dev/hmr.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/dev/hmr.js');
+}();
+
+;
+
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-dev-middleware");
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-hot-middleware");
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(26);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
 
 /***/ }),
 /* 26 */
@@ -947,7 +1153,25 @@ module.exports = require("webpack-hot-middleware");
 "use strict";
 
 
-module.exports = __webpack_require__(27);
+var _require = __webpack_require__(0),
+    env = _require.env;
+
+var clientConfig = __webpack_require__(27);
+var serverConfig = __webpack_require__(29);
+var applyBaseConfig = __webpack_require__(31)(env);
+
+module.exports = [clientConfig, serverConfig].map(applyBaseConfig);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(applyBaseConfig, 'applyBaseConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/index.js');
+}();
+
+;
 
 /***/ }),
 /* 27 */
@@ -956,25 +1180,9 @@ module.exports = __webpack_require__(27);
 "use strict";
 
 
-var _require = __webpack_require__(0),
-    env = _require.env;
-
-var clientConfig = __webpack_require__(28);
-var serverConfig = __webpack_require__(30);
-var applyBaseConfig = __webpack_require__(32)(env);
-
-module.exports = [clientConfig, serverConfig].map(applyBaseConfig);
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var webpack = __webpack_require__(2);
-var merge = __webpack_require__(3);
-var CompressionPlugin = __webpack_require__(29);
+var webpack = __webpack_require__(3);
+var merge = __webpack_require__(4);
+var CompressionPlugin = __webpack_require__(28);
 
 var _require = __webpack_require__(1),
     join = _require.join;
@@ -1045,22 +1253,39 @@ var devConfig = {
 module.exports = function (env) {
 	return env.NODE_ENV === 'production' ? merge(commonConfig, prodConfig) : merge(commonConfig, devConfig);
 };
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+
+	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+
+	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+
+	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/client.js');
+}();
+
+;
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("compression-webpack-plugin");
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var nodeExternals = __webpack_require__(31);
-var merge = __webpack_require__(3);
+var nodeExternals = __webpack_require__(30);
+var merge = __webpack_require__(4);
 
 var _require = __webpack_require__(1),
     join = _require.join;
@@ -1091,22 +1316,39 @@ var devConfig = {};
 module.exports = function (env) {
 	return env.NODE_ENV === 'production' ? merge(commonConfig, prodConfig) : merge(commonConfig, devConfig);
 };
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+
+	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+
+	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+
+	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/server.js');
+}();
+
+;
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-node-externals");
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var webpack = __webpack_require__(2);
-var merge = __webpack_require__(3);
+var webpack = __webpack_require__(3);
+var merge = __webpack_require__(4);
 
 var _require = __webpack_require__(1),
     join = _require.join;
@@ -1163,6 +1405,64 @@ module.exports = function (env) {
 		return merge(commonConfig, envConfig, factory(env));
 	};
 };
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(PATHS, 'PATHS', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+
+	__REACT_HOT_LOADER__.register(commonConfig, 'commonConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+
+	__REACT_HOT_LOADER__.register(prodConfig, 'prodConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+
+	__REACT_HOT_LOADER__.register(devConfig, 'devConfig', '/Users/Kidokeisuke/bitcraft/webpack_config/base.js');
+}();
+
+;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+module.exports = require("morgan");
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _Root = __webpack_require__(0);
+
+var html = '\n\t<!doctype html>\n\t<html>\n\t\t<head>\n\t\t\t<title>faye chat</title>\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="app"></div>\n\t\t\t<div id="modal-overlay"></div>\n\t\t\t<script type="text/javascript" src=' + _Root.fayeUrl + '/client.js></script>\n\t\t\t<script src="dist/bundle.js"></script>\n\t\t</body>\n\t</html>\n';
+
+var _default = function _default(req, res) {
+	res.send(html);
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(html, 'html', '/Users/Kidokeisuke/bitcraft/src/server/page.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/server/page.js');
+}();
+
+;
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=index.js.map

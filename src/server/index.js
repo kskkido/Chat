@@ -1,20 +1,17 @@
 import path from 'path'
-import morgan from 'morgan'
 import express from 'express'
 import bodyParser from 'body-parser'
-import { env, port, root } from 'Root'
+import { port, root } from 'Root'
 import tcp from './tcp'
+import dev from './dev'
 import page from './page'
-import hotmod from './hotmod'
 
 const PUBLIC_PATH = path.join(root, 'dist')
 
 const app = express()
 
 export default app
-	.use(env.NODE_ENV === 'development' ? hotmod : (req, res, next) => next())
-
-	.use(morgan('dev'))
+	.use(dev)
 
 	.use(bodyParser.urlencoded({ extended: false }))
 	.use(bodyParser.json())
