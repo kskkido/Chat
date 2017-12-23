@@ -12,7 +12,7 @@ if ('HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/
 	try {
 		console.time('install')
 		console.log('starting npm install of dev dependencies')
-		proc.execSync(`yarn add ${packages}`)
+		proc.execSync(`npm install ${packages}`)
 		console.timeEnd('install')
 
 		console.time('build')
