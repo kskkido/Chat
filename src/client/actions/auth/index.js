@@ -19,14 +19,3 @@ export const authFail = actionCreator(
 	AUTH_FAIL,
 	({ error }) => ({ error })
 )
-
-/* ====== DEFINE DISPATCHER ====== */
-// export const authRequest = username => (dispatch) => {
-// 	const error = validate(username)
-
-// 	if (error.length > 0) {
-// 		return dispatch(authFail({ error }))
-// 	}
-
-// 	return dispatch(authSuccess({ username }))
-// }
