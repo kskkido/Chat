@@ -1,5 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-export const username = (_username = '') => {
+const username = (_username = '') => {
 	let error = ''
 
 	if (!/^\w+$/.test(_username)) {
@@ -8,3 +7,5 @@ export const username = (_username = '') => {
 
 	return error
 }
+
+export default username

@@ -1,11 +1,11 @@
 import { curry } from 'ramda'
 import { cleanInput } from 'Utils/tcp'
-import { username as validation } from 'Utils/validations'
+import validate from 'Utils/validations'
 
 const onInput = socket => new Promise((res, rej) => {
 	socket.on('data', function response(data) {
 		const username = cleanInput(data)
-		const error = validation(username)
+		const error = validate(username)
 
 		socket.removeListener('data', response)
 

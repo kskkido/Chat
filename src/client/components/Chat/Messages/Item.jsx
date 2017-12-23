@@ -1,8 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import WithRender from 'Components/WithRender'
+import WithRedux from 'Components/WithRedux'
 import {
 	AppSubText as SubText,
 	ChatMessageBody as Body,
@@ -14,10 +13,10 @@ import {
 } from 'Components/Styles'
 
 /* Receives color and isSelf property from user with provided username */
-const MessageConfigProvider = connect(({ auth, users }, { username }) => ({
-	color: users[username].color,
+const MessageConfigProvider = WithRedux(({ auth, users }, { username }) => ({
+	color: users.byId[username].color,
 	isSelf: username === auth.username
-}))(WithRender)
+}))
 
 /* ==== DISPLAY FOR USERNAME ==== */
 const MessageSender = ({ isSelf, username }) => (

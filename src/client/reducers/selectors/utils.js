@@ -1,8 +1,7 @@
-/* eslint-disable import/prefer-default-export */
 const compareStates = (prevStates, nextStates) =>
 	prevStates.every((prevState, i) => prevState === nextStates[i])
 
-export const combineSelectors = (selectorsArr, fn) => {
+const combineSelectors = (selectorsArr, fn) => {
 	let prevStates
 	let prevResults
 
@@ -16,3 +15,5 @@ export const combineSelectors = (selectorsArr, fn) => {
 		return prevResults
 	}
 }
+
+export default combineSelectors

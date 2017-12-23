@@ -18,17 +18,19 @@ class FormController extends React.Component {
 		inputValues: {}
 	}
 
-	onChange = updateFn => this.setState(({ inputValues }) => ({
-		inputValues: updateFn(inputValues)
+	onChange = (update, name) => this.setState(({ inputValues }) => ({
+		inputValues: {
+			...inputValues,
+			[name]: typeof update === 'function' ?
+				update(inputValues) :
+				update
+		}
 	}))
 
 	handleChange = (e) => {
 		const { name, value } = e.target
 
-		this.onChange(inputValues => ({
-			...inputValues,
-			[name]: value
-		}))
+		this.onChange(value, name)
 	}
 
 	handleSubmit = (e) => {

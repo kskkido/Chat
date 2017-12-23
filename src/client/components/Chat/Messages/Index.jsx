@@ -1,15 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import selectMessagesVisible from 'Reducers/selectors'
 import { ChatMessagesContainer as Container } from 'Components/Styles'
-import WithRender from 'Components/WithRender'
+import WithRedux from 'Components/WithRedux'
 import ScrollBottom from 'Components/ScrollBottom'
-import Message from './Message'
+import Item from './Item'
 
 /* selects messages from non-muted users */
-const MessagesProvider = connect(state => ({
+const MessagesProvider = WithRedux(state => ({
 	messages: selectMessagesVisible(state)
-}))(WithRender)
+}))
 
 const MessagesList = () => (
 	<MessagesProvider>
@@ -17,7 +16,7 @@ const MessagesList = () => (
 			<ScrollBottom watch={messages.length}>
 				<Container>
 					{messages.map(({ content, timestamp, username }) => (
-						<Message
+						<Item
 							key={timestamp}
 							content={content}
 							timestamp={timestamp}

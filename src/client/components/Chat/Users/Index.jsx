@@ -1,21 +1,17 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { values } from 'ramda'
 import { ChatUsersContainer } from 'Components/Styles'
-import WithRender from 'Components/WithRender'
-import User from './User'
+import WithRedux from 'Components/WithRedux'
+import Item from './Item'
 
-const UsersProvider = connect(({ users }) => ({ users: values(users) }))(WithRender)
+const UsersProvider = WithRedux(({ users }) => ({ users: users.allIds }))
 
 const UserList = () => (
 	<UsersProvider>
 		{({ users }) => (
 			<ChatUsersContainer>
-				{users.map(({ username, color, mute }) => (
-					<User
+				{users.map(username => (
+					<Item
 						key={username}
-						color={color}
-						mute={mute}
 						username={username}
 					/>))
 				}

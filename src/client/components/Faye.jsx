@@ -13,6 +13,7 @@ class FayeProvider extends Component {
 		eventManager.raise(null, message)
 
 		cache.push(message)
+
 		while (cache.length > 2000) {
 			cache.shift()
 		}

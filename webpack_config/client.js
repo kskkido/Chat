@@ -7,8 +7,10 @@ const { root } = require('../')
 const PATHS = {
 	entry: join(root, 'src/client'),
 	output: join(root, 'dist'),
+	actions: join(root, 'src/client/actions'),
 	components: join(root, 'src/client/components'),
-	constants: join(root, 'src/client/constants.js'),
+	constants: join(root, 'src/client/constants'),
+	middlewares: join(root, 'src/client/middlewares'),
 	reducers: join(root, 'src/client/reducers'),
 }
 
@@ -25,8 +27,10 @@ const commonConfig = {
 	},
 	resolve: {
 		alias: {
+			Actions: PATHS.actions,
 			Components: PATHS.components,
 			Constants: PATHS.constants,
+			Middlewares: PATHS.middlewares,
 			Reducers: PATHS.reducers,
 			Utils: PATHS.utils,
 		},

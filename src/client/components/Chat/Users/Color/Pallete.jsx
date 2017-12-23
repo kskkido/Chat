@@ -6,7 +6,6 @@ import {
 	ColorCell as TableCell
 } from 'Components/Styles'
 
-
 const COLOR_KEYS = Reflect.ownKeys(COLORS)
 
 const ColorPallete = ({ color, handleClick }) => (

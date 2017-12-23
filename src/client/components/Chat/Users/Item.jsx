@@ -1,12 +1,12 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { userColor, userMute } from 'Reducers/users'
-import WithRender from 'Components/WithRender'
+import { userColor, userMute } from 'Actions/users'
 import { ChatUserContainer as Container } from 'Components/Styles'
-import Control from './Control'
+import WithRedux from 'Components/WithRedux'
+import Color from './Color'
 
-const mapStateToProps = ({ auth }, { username }) => ({
+const mapStateToProps = ({ auth, users }, { username }) => ({
+	user: users.byId[username],
 	isSelf: auth.username === username
 })
 
@@ -15,27 +15,30 @@ const mapDispatchToProps = (dispatch, { username }) => ({
 	dispatchMute: mute => dispatch(userMute({ username, mute }))
 })
 
-const DispatchProvider = connect(mapStateToProps, mapDispatchToProps)(WithRender)
+const UserProvider = WithRedux(mapStateToProps, mapDispatchToProps)
 
-const User = ({ mute, color, username }) => (
-	<DispatchProvider username={username}>
-		{({ dispatchColor, dispatchMute, isSelf }) => (
+const User = ({ username }) => (
+	<UserProvider username={username}>
+		{({
+			dispatchColor,
+			dispatchMute,
+			isSelf,
+			user
+		}) => (
 			<Container>
 				<div>user: {isSelf ? `[ ${username} ]` : username}</div>
-				<Control
-					color={color}
-					mute={mute}
+				<Color
+					color={user.color}
+					mute={user.mute}
 					handleColor={dispatchColor}
 					handleMute={dispatchMute}
 				/>
 			</Container>
 		)}
-	</DispatchProvider>
+	</UserProvider>
 )
 
 User.propTypes = {
-	color: PropTypes.string.isRequired,
-	mute: PropTypes.bool.isRequired,
 	username: PropTypes.string.isRequired,
 }
 

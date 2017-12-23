@@ -75,9 +75,9 @@ module.exports =
 // module.exports getters that check for environment variables
 // some how make symlink work like bones
 var pkg = __webpack_require__(13);
-var process = __webpack_require__(14);
 
-var env = process.env;
+var _process = process,
+    env = _process.env;
 
 
 module.exports = {
@@ -86,9 +86,6 @@ module.exports = {
 	},
 	get fayeUrl() {
 		return module.exports.baseUrl + '/faye';
-	},
-	get root() {
-		return process.cwd();
 	},
 	get name() {
 		return pkg.name;
@@ -99,6 +96,7 @@ module.exports = {
 	get tPort() {
 		return module.exports.port !== 8000 ? 8000 : 8888;
 	},
+	root: process.cwd(),
 	package: pkg,
 	env: env
 };
@@ -159,13 +157,17 @@ var _ramda = __webpack_require__(7);
 
 var _tcp = __webpack_require__(8);
 
-var _validations = __webpack_require__(17);
+var _validations = __webpack_require__(16);
+
+var _validations2 = _interopRequireDefault(_validations);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var onInput = function onInput(socket) {
 	return new Promise(function (res, rej) {
 		socket.on('data', function response(data) {
 			var username = (0, _tcp.cleanInput)(data);
-			var error = (0, _validations.username)(username);
+			var error = (0, _validations2.default)(username);
 
 			socket.removeListener('data', response);
 
@@ -290,15 +292,15 @@ var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
 var _Root = __webpack_require__(0);
 
-var _tcp = __webpack_require__(15);
+var _tcp = __webpack_require__(14);
 
 var _tcp2 = _interopRequireDefault(_tcp);
 
-var _page = __webpack_require__(23);
+var _page = __webpack_require__(22);
 
 var _page2 = _interopRequireDefault(_page);
 
-var _hotmod = __webpack_require__(24);
+var _hotmod = __webpack_require__(23);
 
 var _hotmod2 = _interopRequireDefault(_hotmod);
 
@@ -455,12 +457,6 @@ module.exports = {
 
 /***/ }),
 /* 14 */
-/***/ (function(module, exports) {
-
-module.exports = require("process");
-
-/***/ }),
-/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -474,7 +470,7 @@ var _faye = __webpack_require__(5);
 
 var _faye2 = _interopRequireDefault(_faye);
 
-var _net = __webpack_require__(16);
+var _net = __webpack_require__(15);
 
 var _net2 = _interopRequireDefault(_net);
 
@@ -484,7 +480,7 @@ var _handshake = __webpack_require__(6);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _sockets = __webpack_require__(18);
+var _sockets = __webpack_require__(17);
 
 var _sockets2 = _interopRequireDefault(_sockets);
 
@@ -523,13 +519,13 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -538,8 +534,7 @@ module.exports = require("net");
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-/* eslint-disable import/prefer-default-export */
-var username = exports.username = function username() {
+var username = function username() {
 	var _username = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
 	var error = '';
@@ -550,6 +545,9 @@ var username = exports.username = function username() {
 
 	return error;
 };
+
+var _default = username;
+exports.default = _default;
 ;
 
 var _temp = function () {
@@ -558,12 +556,14 @@ var _temp = function () {
 	}
 
 	__REACT_HOT_LOADER__.register(username, 'username', '/Users/Kidokeisuke/bitcraft/src/utils/validations.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/Kidokeisuke/bitcraft/src/utils/validations.js');
 }();
 
 ;
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -579,7 +579,7 @@ var _handshake = __webpack_require__(6);
 
 var _handshake2 = _interopRequireDefault(_handshake);
 
-var _faye = __webpack_require__(19);
+var _faye = __webpack_require__(18);
 
 var _faye2 = _interopRequireDefault(_faye);
 
@@ -664,7 +664,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -680,11 +680,11 @@ var _faye2 = _interopRequireDefault(_faye);
 
 var _Root = __webpack_require__(0);
 
-var _eventManager = __webpack_require__(20);
+var _eventManager = __webpack_require__(19);
 
 var _eventManager2 = _interopRequireDefault(_eventManager);
 
-var _dev = __webpack_require__(22);
+var _dev = __webpack_require__(21);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -780,7 +780,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -790,7 +790,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _manager = __webpack_require__(21);
+var _manager = __webpack_require__(20);
 
 var _manager2 = _interopRequireDefault(_manager);
 
@@ -815,7 +815,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -987,7 +987,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1023,7 +1023,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1057,7 +1057,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1075,15 +1075,15 @@ var _webpack = __webpack_require__(2);
 
 var _webpack2 = _interopRequireDefault(_webpack);
 
-var _webpackDevMiddleware = __webpack_require__(25);
+var _webpackDevMiddleware = __webpack_require__(24);
 
 var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 
-var _webpackHotMiddleware = __webpack_require__(26);
+var _webpackHotMiddleware = __webpack_require__(25);
 
 var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
-var _webpack3 = __webpack_require__(27);
+var _webpack3 = __webpack_require__(26);
 
 var _webpack4 = _interopRequireDefault(_webpack3);
 
@@ -1122,25 +1122,25 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-dev-middleware");
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-hot-middleware");
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(28);
+module.exports = __webpack_require__(27);
 ;
 
 var _temp = function () {
@@ -1152,7 +1152,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1161,9 +1161,9 @@ var _temp = function () {
 var _require = __webpack_require__(0),
     env = _require.env;
 
-var clientConfig = __webpack_require__(29);
-var serverConfig = __webpack_require__(31);
-var applyBaseConfig = __webpack_require__(33)(env);
+var clientConfig = __webpack_require__(28);
+var serverConfig = __webpack_require__(30);
+var applyBaseConfig = __webpack_require__(32)(env);
 
 module.exports = [clientConfig, serverConfig].map(applyBaseConfig);
 ;
@@ -1179,7 +1179,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1187,7 +1187,7 @@ var _temp = function () {
 
 var webpack = __webpack_require__(2);
 var merge = __webpack_require__(3);
-var CompressionPlugin = __webpack_require__(30);
+var CompressionPlugin = __webpack_require__(29);
 
 var _require = __webpack_require__(1),
     join = _require.join;
@@ -1198,8 +1198,10 @@ var _require2 = __webpack_require__(0),
 var PATHS = {
 	entry: join(root, 'src/client'),
 	output: join(root, 'dist'),
+	actions: join(root, 'src/client/actions'),
 	components: join(root, 'src/client/components'),
-	constants: join(root, 'src/client/constants.js'),
+	constants: join(root, 'src/client/constants'),
+	middlewares: join(root, 'src/client/middlewares'),
 	reducers: join(root, 'src/client/reducers')
 };
 
@@ -1212,8 +1214,10 @@ var commonConfig = {
 	},
 	resolve: {
 		alias: {
+			Actions: PATHS.actions,
 			Components: PATHS.components,
 			Constants: PATHS.constants,
+			Middlewares: PATHS.middlewares,
 			Reducers: PATHS.reducers,
 			Utils: PATHS.utils
 		},
@@ -1272,19 +1276,19 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("compression-webpack-plugin");
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var nodeExternals = __webpack_require__(32);
+var nodeExternals = __webpack_require__(31);
 var merge = __webpack_require__(3);
 
 var _require = __webpack_require__(1),
@@ -1335,13 +1339,13 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("webpack-node-externals");
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
