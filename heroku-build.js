@@ -12,7 +12,7 @@ if ('HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/
 	try {
 		console.time('install')
 		console.log('starting npm install of dev dependencies')
-		proc.execSync(`npm i ${packages}`)
+		proc.execSync(`yarn add ${packages}`)
 		console.timeEnd('install')
 
 		console.time('build')
@@ -22,7 +22,7 @@ if ('HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/
 
 		console.time('uninstall')
 		console.log('starting npm uninstall of dev dependencies')
-		proc.execSync(`npm uninstall ${packages}`)
+		proc.execSync(`yarn remove ${packages}`)
 		console.timeEnd('uninstall')
 	} catch (err) {
 		console.error(err.message)
