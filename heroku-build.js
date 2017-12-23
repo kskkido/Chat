@@ -6,7 +6,9 @@ if ('HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/
 	let packages = ''
 
 	Object.keys(deps).forEach((key) => {
-		packages += `${key}@${deps[key]} ` // note space at end to separate entries
+		console.log(key, deps[key])
+
+		packages += `${deps[key]} ` // note space at end to separate entries
 	})
 
 	try {
