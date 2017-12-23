@@ -6,10 +6,7 @@ if ('HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/
 	let packages = ''
 
 	Object.keys(deps).forEach((key) => {
-		console.log(key, deps[key])
-
 		packages += `${key}@${deps[key]} ` // note space at end to separate entries
-		console.log(packages)
 	})
 
 	try {
@@ -20,7 +17,7 @@ if ('HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/
 
 		console.time('build')
 		console.log('starting npm build')
-		proc.execSync('npm run build-prods')
+		proc.execSync('npm run build-prod')
 		console.timeEnd('build')
 
 		console.time('uninstall')
