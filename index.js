@@ -16,6 +16,6 @@ module.exports = {
 	get port() { return env.PORT || 1337 },
 	get tPort() { return module.exports.port !== 8000 ? 8000 : 8888 },
 	root: process.cwd(),
-	package: pkg,
+	pkg,
 	env,
 }
