@@ -10,7 +10,7 @@ import {
 	ChatHeader as Header,
 } from 'Components/Styles'
 
-const Chat = ({ onMessage }) => (
+const View = ({ onMessage }) => (
 	<Container>
 		<Left>
 			<Header>
@@ -28,8 +28,8 @@ const Chat = ({ onMessage }) => (
 	</Container>
 )
 
-Chat.propTypes = {
+View.propTypes = {
 	onMessage: PropTypes.func.isRequired,
 }
 
-export default Chat
+export default View

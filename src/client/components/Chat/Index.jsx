@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { identity } from 'ramda'
-import ChatView from './View'
-import ChatSubscribe from './Subscribe'
+import View from './View'
+import Subscribe from './Subscribe'
 
 /* publish to faye on mount, and provide child with a method to publish message */
 class Chat extends Component {
@@ -38,9 +38,9 @@ class Chat extends Component {
 		const { self, subscribe } = this.props
 
 		return (
-			<ChatSubscribe subscribe={subscribe}>
-				<ChatView onMessage={self ? this.onMessage : identity} />
-			</ChatSubscribe>
+			<Subscribe subscribe={subscribe}>
+				<View onMessage={self ? this.onMessage : identity} />
+			</Subscribe>
 		)
 	}
 }
