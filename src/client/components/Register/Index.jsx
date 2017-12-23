@@ -1,12 +1,12 @@
 import React from 'react'
 import PropType from 'prop-types'
-import FormController from './FormController'
+import FormController from 'Components/FormController'
 import {
 	AppError as Error,
 	AppOverlay as Overlay,
 	UserFormContainer as Form,
 	UserInput as Input,
-} from './Styles'
+} from 'Components/Styles'
 
 /* register username */
 const Register = ({ authRequest, error }) => {
