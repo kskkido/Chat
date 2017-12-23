@@ -995,7 +995,6 @@ var PATHS = {
 };
 
 var commonConfig = {
-	entry: ['react-hot-loader/patch', 'webpack-hot-middleware/client', PATHS.entry],
 	output: {
 		path: PATHS.output,
 		filename: 'bundle.js',
@@ -1015,6 +1014,7 @@ var commonConfig = {
 };
 
 var prodConfig = {
+	entry: PATHS.entry,
 	plugins: [new webpack.optimize.UglifyJsPlugin({
 		compress: {
 			warnings: false, // Suppress uglification warnings
@@ -1036,6 +1036,7 @@ var prodConfig = {
 };
 
 var devConfig = {
+	entry: ['react-hot-loader/patch', 'webpack-hot-middleware/client', PATHS.entry],
 	output: {
 		hotUpdateChunkFilename: 'hot/hot-update.js',
 		hotUpdateMainFilename: 'hot/hot-update.json'

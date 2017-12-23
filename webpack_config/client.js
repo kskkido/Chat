@@ -15,11 +15,6 @@ const PATHS = {
 }
 
 const commonConfig = {
-	entry: [
-		'react-hot-loader/patch',
-		'webpack-hot-middleware/client',
-		PATHS.entry
-	],
 	output: {
 		path: PATHS.output,
 		filename: 'bundle.js',
@@ -39,6 +34,7 @@ const commonConfig = {
 }
 
 const prodConfig = {
+	entry: PATHS.entry,
 	plugins: [
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
@@ -64,6 +60,11 @@ const prodConfig = {
 }
 
 const devConfig = {
+	entry: [
+		'react-hot-loader/patch',
+		'webpack-hot-middleware/client',
+		PATHS.entry
+	],
 	output: {
 		hotUpdateChunkFilename: 'hot/hot-update.js',
 		hotUpdateMainFilename: 'hot/hot-update.json'
