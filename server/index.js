@@ -1130,7 +1130,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _Root = __webpack_require__(0);
 
-var html = '\n\t<!doctype html>\n\t<html>\n\t\t<head>\n\t\t\t<title>faye chat</title>\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="app"></div>\n\t\t\t<div id="modal-overlay"></div>\n\t\t\t<script type="text/javascript" src="' + _Root.fayeUrl + '/client.js"></script>\n\t\t\t<script src="dist/bundle.js"></script>\n\t\t</body>\n\t</html>\n';
+var html = '\n\t<!doctype html>\n\t<html>\n\t\t<head>\n\t\t\t<title>faye chat</title>\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="app"></div>\n\t\t\t<script type="text/javascript" src="' + _Root.fayeUrl + '/client.js"></script>\n\t\t\t<script type="text/javascript" src="dist/bundle.js"></script>\n\t\t</body>\n\t</html>\n';
 
 exports.default = function (req, res) {
 	res.send(html);
