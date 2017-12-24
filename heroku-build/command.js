@@ -10,7 +10,7 @@ function measure(msg, fn) {
 }
 
 function measureExecSync(msg) {
-	return measure(msg, proc.execSync)
+	return measure(msg, proc.execSync.bind(proc))
 }
 
 function commandExecSync(msg, convertFn) {
