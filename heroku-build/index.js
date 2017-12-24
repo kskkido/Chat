@@ -14,7 +14,7 @@ const installDevSync = command(
 )
 const uninstallSync = command(
 	'starting uninstall of dependencies',
-	packages => `yarn remove ${packages}`
+	packages => `npm uninstall ${packages}`
 )
 
 if ('HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/app')) {
