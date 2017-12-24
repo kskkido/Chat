@@ -17,7 +17,7 @@ if ('HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/
 
 		console.time('build')
 		console.log('starting npm build')
-		proc.execSync('NODE_ENV=production webpack --config ./webpack.config.js')
+		proc.execSync('npm run build-prod')
 		console.timeEnd('build')
 
 		console.time('uninstall')
