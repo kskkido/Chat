@@ -9,8 +9,7 @@
     "build-prod": "NODE_ENV=production webpack",
     "start": "node ./server",
     "start-dev": "npm run build-dev -w & NODE_ENV=development npm run start",
-    "start-prod": "npm run start-dev && NODE_ENV=production npm run start",
-    "heroku-postbuild": "node ./heroku-build"
+    "start-prod": "npm run start-dev && NODE_ENV=production npm run start"
   },
   "keywords": [],
   "author": "",
