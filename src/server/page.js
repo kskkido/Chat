@@ -8,9 +8,8 @@ const html = 	`
 		</head>
 		<body>
 			<div id="app"></div>
-			<div id="modal-overlay"></div>
 			<script type="text/javascript" src="${fayeUrl}/client.js"></script>
-			<script src="dist/bundle.js"></script>
+			<script type="text/javascript" src="dist/bundle.js"></script>
 		</body>
 	</html>
 `
